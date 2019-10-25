@@ -1,3 +1,6 @@
+# ======================================= SECTION 1 =======================================
+
+
 import numpy as np
 from itertools import product
 from PIL import Image, ImageDraw
@@ -177,7 +180,7 @@ def save_plot(lines, npins, size, nail_pixel_size, file_name):
     thread_image.save(file_name, format="JPEG")
     
     
-    
+# ======================================= SECTION 2 =======================================
     
     
 real_size = 0.58
@@ -199,7 +202,7 @@ lines = find_lines(image, nlines, nrandom, darkness, lightness_penalty, npins, w
 save_plot(lines, npins, size, nail_size, "new_file")
 
 
-
+# ======================================= SECTION 3 =======================================
 
 
 class edge():
@@ -374,7 +377,6 @@ def create_cycle(edge_list, first_edge):
             return cycle, edge_list
         
         
-        
 def add_cycle(cycle, edge_list):
     
     for i in range(len(cycle)):
@@ -385,7 +387,6 @@ def add_cycle(cycle, edge_list):
         new_cycle, edge_list_copy = create_cycle(edge_list_copy, cycle[-1])
         if len(new_cycle) > 1:
             return cycle + new_cycle[1:], edge_list_copy
-
         
         
 def create_full_cycle(edge_list):
@@ -487,8 +488,7 @@ def info(lines, npins, size, nail_size, real_size):
     print("distance = {} meters\n# lines = {}\n".format(int(d), len(lines)))   
     
     
-    
-    
+# ======================================= SECTION 4 =======================================  
     
     
 output = edges_to_output(lines, npins)
