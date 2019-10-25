@@ -1,6 +1,10 @@
 # computational-thread-art
 
-This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my Medium page. The file **line_generation** is a Python script containing all the functions required to run the algorithm and generate your own pieces of art. The 2 sections below are **Algorithm description** (which includes an overview of how the algorithm works, both a very high-level description and a much more detailed, function-by-function description), and **How to run** which gives the instructions for running the **line_generation** file. Note that I have not included, either in the algorithm description, run instructions or Python file, the process by which I generated multicoloured images - if anyone is interested in adding colour to their images, please send me a message and I can include this feature!
+This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my Medium page. The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 3 sections in this document are: 
+* **Algorithm description** (which includes **High level description**, giving the broad strokes of how the algorithm works, and **Function by function**, which looks at each function and its purpose in detail)
+* **How to run**, which gives the instructions for running the **line_generation** file. 
+* **Final thoughts**, in which I outline the future directions I might take this algorithm.
+Note that I have not included, either in the algorithm description, run instructions or Python file, the process by which I generated multicoloured images - if anyone is interested in adding colour to their images, please send me a message and I can include this feature!
 
 # Algorithm description
 
