@@ -1,10 +1,12 @@
-# computational-thread-art
+# Computational Thread Art
+
+![Thread-art tiger](https://miro.medium.com/max/1920/1*Kn4yv19JX8Jg79oUoxHZwA.jpeg)
 
 This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my Medium page. The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 3 sections in this document are: 
 * **Algorithm description** (which includes **High level description**, giving the broad strokes of how the algorithm works, and **Function by function**, which looks at each function and its purpose in detail)
 * **How to run**, which gives the instructions for running the **line_generation** file. 
 * **Final thoughts**, in which I outline the future directions I might take this algorithm.
-Note that I have not included, either in the algorithm description, run instructions or Python file, the process by which I generated multicoloured images - if anyone is interested in adding colour to their images, please send me a message and I can include this feature!
+Note that I have not included, either in the algorithm description, run instructions or Python file, the process by which I generated multicoloured images, such as the orange background for the tiger featured at the top of this article - if anyone is interested in adding colour to their images, please send me a message and I can include this feature!
 
 # Algorithm description
 
