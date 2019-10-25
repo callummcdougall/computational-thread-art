@@ -149,21 +149,21 @@ I would recommend running this algorithm in Jupyter notebooks, or something simi
 
 3. **EULERIAN PATH**
 
-There are 3 important functions in the code block you need to run: *edges_to_output* converts the lines from step 2 into a readable output, *display* prints out this output in a readable form, and annotates every 100 lines so you can keep track of your progress (see below for an explanation of how to use this output), and *info* prints out the total number of lines (increased from step 2, because lines need to be added to create a Eulerian path), as well as the total length of the thread in meters.
+    There are 3 important functions in the code block you need to run: *edges_to_output* converts the lines from step 2 into a readable output, *display* prints out this output in a readable form, and annotates every 100 lines so you can keep track of your progress (see below for an explanation of how to use this output), and *info* prints out the total number of lines (increased from step 2, because lines need to be added to create a Eulerian path), as well as the total length of the thread in meters.
 
-To explain the output, I will reference the image of the tiger that is at the top of my Medium post: https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de. You can see I have added coloured tape every 5 pins, starting at 0 and going around anticlockwise all the way to 167 (I used 168 pins in total for this image). Here is a sample of the output that I use to put the threads in place:
+    To explain the output, I will reference the image of the tiger that is at the top of my Medium post: https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de. You can see I have added coloured tape every 5 pins, starting at 0 and going around anticlockwise all the way to 167 (I used 168 pins in total for this image). Here is a sample of the output that I use to put the threads in place:
 
-54-1
+    54-1
 
-141-0
+    141-0
 
-143-0 outside
+    143-0 outside
 
-0-0
+    0-0
 
-123-1
+    123-1
 
-The tens digit (so 5, 14, 14, 0, 12 respectively) tells me which number from 0-16 to go to - the red tape corresponds to the pins that are a multiple of 10. The units digit specifies the exact pin. The number after the dash, either 0 or 1, specifies which side of the pin: 0 means the clockwise side, 1 means anticlockwise. To further illustrate, the order of the nodes (going anticlockwise from the very first) is 0-0, 0-1, 1-0, 1-1, ... 167-0, 167-1. For instance, whatever position the thread was when I got to this point, I would then connect the strand I was holding to the left side of the pin that is 4 places to the left of the red tape between the numbers 4 and 5. The word "outside" indicates that the edge in question should go outside the frame, because it was only added to create a Eulerian path. Note that, as in the above example, these "outside" threads will tend to be very short distances - they have been purposefully designed this way - but inevitably there will be occasions where you have to circle around large sections of the frame.
+    The tens digit (so 5, 14, 14, 0, 12 respectively) tells me which number from 0-16 to go to - the red tape corresponds to the pins that are a multiple of 10. The units digit specifies the exact pin. The number after the dash, either 0 or 1, specifies which side of the pin: 0 means the clockwise side, 1 means anticlockwise. To further illustrate, the order of the nodes (going anticlockwise from the very first) is 0-0, 0-1, 1-0, 1-1, ... 167-0, 167-1. For instance, whatever position the thread was when I got to this point, I would then connect the strand I was holding to the left side of the pin that is 4 places to the left of the red tape between the numbers 4 and 5. The word "outside" indicates that the edge in question should go outside the frame, because it was only added to create a Eulerian path. Note that, as in the above example, these "outside" threads will tend to be very short distances - they have been purposefully designed this way - but inevitably there will be occasions where you have to circle around large sections of the frame.
 
 # Final thoughts
 
