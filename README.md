@@ -4,7 +4,7 @@ This project contains code that renders an image as a series of lines connecting
 
 # Algorithm description
 
-## High level
+## High level description
 
 This is a very broad description of the algorithm. It misses a lot of finer points, so if you read anything in this next paragraph that is contradicted elsewhere, it is likely incorrect here, but has been simplified for the purpose of explainability.
 
@@ -12,108 +12,108 @@ First, an image is converted into a square array of greyscale pixel values from 
 
 The second half of the code creates a Eulerian path, which is a path around the vertices that uses each edge exactly once. Of course, this might not exist. We require 2 conditions: the the number of lines connected to each side of the pin to be the same (since every line must enter the pin on one side, and leave on the other), and for the graph to be connected, so the first thing the code does is add lines so that these 2 conditions are satistfied. Then, a path is iteratively built up, with the lines added in the 2 previous steps labelled as "outside" (indicating that the thread should go around the outside of the frame, so as not to interfere with the image).
 
-## Low-level
+## Function-by-function description
 
-### Functions for image preparation & line generation
+#### Functions for image preparation & line generation
 
-**generate_pins**
+***generate_pins***
 * Generates the position of pins, given a particular number of pins, image size, and nail pixel size.
 * Creates 2 lists of positions (one for the anticlockwise side, one for the clockwise), and meshes them together so that the order they appear in the final output is the order of nodes anticlockwise around the frame.
 
-**through_pixels**
+***through_pixels***
 * Finds which pixels a line between particular pins runs through.
 * Adjusted so that the number of pixels (approximately) equals the distance between the pins.
 
-**fitness**
+***fitness***
 * Measures how much line improves image. improvement is difference in penalty, i.e. new penalty - old penalty (where a smaller penalty is better).
 * Penalty is the sum of absolute values of positive pixels, minus absolute values of negative pixels times a lightness penalty. If the lightness penalty is 1, going over light areas is as bad as not going over dark areas, so not enough lines get drawn. If the lightness penalty is 0, the algorithm won't care about going over light areas as long as it goes over dark areas as well, so too many lines will be drawn. It needs to be balanced between these 2 extremes (normally about 0.4-0.6).
 * The adding parameter in fitness means that it can calculate the improvement either from adding a line, or from removing a line that is already in the image.
 
-**optimise_fitness**
+***optimise_fitness***
 * Process of adding a new line is as follows:
     1. Generates random lines (ensuring they aren't the same line, or the same but reversed, or connecting the same pin), then finds the line with the best fitness.
     2. Subtracts this line from the image.
     3. Returns the new image, the best line (i.e. the vertices it is connecting), and a boolean that says whether a line is being added or removed.
     
-**find_lines**
+***find_lines***
 * Calls optimise_fitness multiple times to draw a set of lines.
 * Updates the image and the list of lines with each line drawn.
 * Every 10 lines drawn, prints output that describes the progress of the algorithm.
 * Prints total run time of algorithm at the end.
 
-**hms_format**
+***hms_format***
 * Takes a time, and converts it into hh:mm:ss. Used in find_lines function, to report progress.
 
-**get_penalty**
+***get_penalty***
 * Calculates the total penalty of the image.
 * Like other functions, it can do this for an image weighting, or a simplified version if no image weighting is used
 
-**prepare_image**
+***prepare_image***
 * Takes a jpeg or png image file, and converts it into an array of bytes.
 * The input needs to be square, otherwise it will be squashed.
 * Colour input (boolean) determines whether image is monochrome (so pixel values = darkness of image) or coloured (so pixel values = saturation of image; note in this case the image must be pre-processed so only the appropriate colour is left).
 * Weighting input (boolean) determines whether image is meant to be an importance weighting (so the byte array returned has values between 0 and 1, where 1 means black, so high importance, and 0 means white, so low importance).
 
-**save_plot**
+***save_plot***
 * Saves the plot of lines under a specified title - can then be opened with GIMP.
 * Colours are added in the order they appear in the list.
 * Uses RGB format.
 
-### Functions (and classes) for Eulerian path
+#### Functions (and classes) for Eulerian path
 
-**edge**
+***edge***
 * Creates a class for edges that makes the path-finding process easier. Among the things this class allows me to do efficiently are:
    * Find the pin number, the node number (these two are different, as each pin has 2 nodes, corresponding to its 2 sides) and the orientation (i.e. which pin side is being referred to) of the two vertices which are connected by the edge.
    * Flip the direction of an edge (i.e. from node B to A, rather than A to B)
    * Look for edges that are connected to this edge (connected in the sense that the pair of edges share the same pin number, but not the same node number, so they can be traced by thread sequentially).
 
-**extra_edges_parity_correct**
+***extra_edges_parity_correct***
 * Takes in edge_list and returns the extra edges needed so that every pin has the same number of edges on either side.
 * This algorithm is quite complicated, since I have put a lot of thought into how to make sure the extra edges added are the easiest to physically implement, so I will not go into detail - if people are interested, please send a message!
 
-**get_closest_pair**
+***get_closest_pair***
 * Used in the extra_edges_parity_correct algorithm, to find the closest pair of vertices to match up.
 
-**extra_edges_connect_graph**
+***extra_edges_connect_graph***
 * Adds extra edges so that the graph is connected.
 * This is an inefficient way to add edges, but since most graphs will already be connected (or very nearly), I think there's no point improving this.
 
-**add_connected_vertex**
+***add_connected_vertex***
 * Takes a set of vertices and an edge list, and adds a vertex not currently in s that can be connected (by an edge in the edge_list) to the rest of s.
 * The boolean at the end says whether a new vertex was successfully added, if not then it is necessary to add a new edge.
 
-**get_adjacant_vertices**
+***get_adjacant_vertices***
 * Takes a set of vertices and its compliment, and returns a pair of vertices (in set and compliment respectively) that are a distance of 1 apart from each other.
 
-**create_cycle**
+***create_cycle***
 * Creates a path from edges in edge_list, starting from first_edge. 
 * Returns path, and new reduced edge_list.
 * Note that the path returned will only (definitely) be a cycle if the edge_list is parity-corrected.
 
-**add_cycle**
+***add_cycle***
 * Takes a cycle and edge_list, and goes through the cycle trying to find a place to insert a new cycle, using edges from edge_list.
 * Once it finds a place, it inserts a cycle, and returns the new extended cycle, and the new reduced edge_list.
 
-**create_full_cycle**
+***create_full_cycle***
 * Takes a (connected + parity-corrected) edge_list, and keeps adding cycles to it using add_cycle, until all edges have been added.
 
-**edges_to_output**
+***edges_to_output***
 * Takes in non-parity-corrected edges, and uses all the functions above to return a formatted output.
 * Also uses cut_down function (see below).
 * The format of the output is explained in the **How to run** section.
 
-**cut_down**
+***cut_down***
 * Removes sequences of multiple "outside" strings, replacing them with one direct string.
 
-**display**
+***display***
 * Prints all the lines, in groups of 100.
 
-**info**
+***info***
 * Prints out the total distance (in meters) of the thread, and the number of lines.
 
 # How to run
 
-I would recommend running this algorithm in Jupyter notebooks, or something similar. I appreciate that most code on GitHub is designed to be downloaded and run from command line, but this is not. The reason I have chosen this is because there are 3 main stages of the algorithm: (1) the formatting of the image, (2) the generation of the lines, and (3) the creation of a Eulerian path connecting them. Each stage is only performed if the previous stage is satisfactory, so it makes sense to be able to run the code in sequential blocks, depending on which stage you are at. At this point, I note that the instructions I have included do not extend
+I would recommend running this algorithm in Jupyter notebooks, or something similar. I appreciate that most code on GitHub is designed to be downloaded and run from command line, but this is not. The reason I have chosen this is because there are 3 main stages of the algorithm: (1) the formatting of the image, (2) the generation of the lines, and (3) the creation of a Eulerian path connecting them. Each stage is only performed if the previous stage is satisfactory, so it makes sense to be able to run the code in sequential blocks, depending on which stage you are at. You should only need 4 cells: one to define all the functions used in steps 1 and 2, one to run the code for steps 1 and 2, one to define the functions used in step 3, and one to run the code for step 3. This suggested partition is clearly indicated in the Python file.
 
 1. IMAGE PREPARATION
 
@@ -151,7 +151,7 @@ I would recommend running this algorithm in Jupyter notebooks, or something simi
 
 3. EULERIAN PATH
 
-I have included a lot of detail about how the alg generates a path in my **Algorithm description**, under the subheading **Low-level**, so I will not recreate that here. What I will do is outline the 3 important functions in the code block you need to run: *edges_to_output* converts the lines from step 2 into a readable output, *display* prints out this output in a readable form, and annotates every 100 lines so you can keep track of your progress (see below for an explanation of how to use this output), and *info* prints out the total number of lines (increased from step 2, because lines need to be added to create a Eulerian path), as well as the total length of the thread in meters.
+I have included a lot of detail about how the alg generates a path in my **Algorithm description**, under the subheading **Function by function**, so I will not recreate that here. What I will do is outline the 3 important functions in the code block you need to run: *edges_to_output* converts the lines from step 2 into a readable output, *display* prints out this output in a readable form, and annotates every 100 lines so you can keep track of your progress (see below for an explanation of how to use this output), and *info* prints out the total number of lines (increased from step 2, because lines need to be added to create a Eulerian path), as well as the total length of the thread in meters.
 
 To explain the output, I will reference the image of the tiger that is at the top of my Medium post: https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de. You can see I have added coloured tape every 5 pins, starting at 0 and going around anticlockwise all the way to 167 (I used 168 pins in total for this image). Here is a sample of the output that I use to put the threads in place:
 
