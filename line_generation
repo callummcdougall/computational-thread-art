@@ -26,6 +26,16 @@ def generate_pins(npins, size, nail_pixel_size):
     y = r * (1 + np.sin(theta)) + 0.5
     
     return np.array((x,y)).T
+    
+    
+def through_pixels(a, b):
+    
+    d = int( ((a[0]-b[0])**2 + (a[1]-b[1])**2) ** 0.5 )
+    
+    pixels = np.array([a + (b-a)*(i/d) for i in range(0, d+1)])
+    pixels = np.unique(np.round(pixels), axis=0).astype(int)
+    
+    return pixels
 
 
 def fitness(image, a, b, darkness, lightness_penalty, w, using_w, adding):
