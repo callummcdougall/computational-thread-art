@@ -1,6 +1,7 @@
 # ======================================= SECTION 1 =======================================
 
 
+
 import numpy as np
 from itertools import product
 from PIL import Image, ImageDraw
@@ -9,13 +10,13 @@ import time
 from IPython.display import clear_output
 
 
-def generate_pins(npins, size, nail_pixel_size):
-
-    r = (size / 2) - 1
+def generate_pins(npins, wheel_pixel_size, nail_pixel_size):
+    
+    r = (wheel_pixel_size / 2) - 1
     
     theta = np.arange(npins, dtype="float64") / npins * (2 * np.pi)
     
-    epsilon = np.arcsin(nail_pixel_size / size)
+    epsilon = np.arcsin(nail_pixel_size / wheel_pixel_size)
     
     theta_acw = theta.copy() + epsilon
     theta_cw = theta.copy() - epsilon
@@ -26,8 +27,8 @@ def generate_pins(npins, size, nail_pixel_size):
     y = r * (1 + np.sin(theta)) + 0.5
     
     return np.array((x,y)).T
-    
-    
+
+
 def through_pixels(a, b):
     
     d = int( ((a[0]-b[0])**2 + (a[1]-b[1])**2) ** 0.5 )
@@ -38,7 +39,7 @@ def through_pixels(a, b):
     return pixels
 
 
-def fitness(image, a, b, darkness, lightness_penalty, w, using_w, adding):
+def fitness(image, a, b, darkness, lightness_penalty, w_pos, w_neg, adding):
     
     pixels = through_pixels(a, b)
     old_pixel_values = np.array([image[p[0],p[1]] for p in pixels])
@@ -48,18 +49,18 @@ def fitness(image, a, b, darkness, lightness_penalty, w, using_w, adding):
     else:
         new_pixel_values = old_pixel_values + darkness
     
-    if using_w:
-        pixel_weightings = np.array([w[p[0],p[1]] for p in pixels])
-        old_pixel_values = old_pixel_values * pixel_weightings
-        new_pixel_values = new_pixel_values * pixel_weightings
-
-    new_penalty = sum(new_pixel_values[new_pixel_values > 0]) - lightness_penalty * sum(new_pixel_values[new_pixel_values < 0])
-    old_penalty = sum(old_pixel_values[old_pixel_values > 0]) - lightness_penalty * sum(old_pixel_values[old_pixel_values < 0])
+    pos_pixel_weightings = np.array([w_pos[p[0],p[1]] for p in pixels])
+    neg_pixel_weightings = np.array([w_neg[p[0],p[1]] for p in pixels])
     
-    return new_penalty - old_penalty
+    new_penalty = sum((new_pixel_values*pos_pixel_weightings)[new_pixel_values > 0]) \
+                    - lightness_penalty * sum((new_pixel_values*neg_pixel_weightings)[new_pixel_values < 0])           
+    old_penalty = sum((old_pixel_values*pos_pixel_weightings)[old_pixel_values > 0]) \
+                    - lightness_penalty * sum((old_pixel_values*neg_pixel_weightings)[old_pixel_values < 0])
+
+    return (new_penalty - old_penalty) / len(pixels)
 
 
-def optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of_lines, w, using_w):
+def optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of_lines, w_pos, w_neg):
     
     n_pin_sides = npins * 2
     
@@ -72,11 +73,11 @@ def optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of
     
     for line in rand_lines:
                 
-        if int(line[0]/2) != int(line[1]/2) and line[1]-line[0] > 10:
+        if int(line[0]/2) != int(line[1]/2) and line[1]-line[0] > 10 and line[1]-line[0] < (n_pin_sides - 10):
 
             p0, p1 = pins[line[0]], pins[line[1]]
             
-            new_fitness = fitness(image, p0, p1, darkness, lightness_penalty, w, using_w, adding = line not in list_of_lines)
+            new_fitness = fitness(image, p0, p1, darkness, lightness_penalty, w_pos, w_neg, adding = line not in list_of_lines)
 
             if new_fitness < best_fitness:
                 
@@ -97,32 +98,45 @@ def optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of
     return (image, best_line, adding)
 
 
-def find_lines(image, nlines, nrandom, darkness, lightness_penalty, npins, w, using_w):
+def find_lines(image, nlines, nrandom, darkness, lightness_penalty, npins, w_pos, w_neg):
     
-    t0 = time.time()
-    
+    time_list = []
     list_of_lines = []
-    penalty_over_time = []
+    avg_penalty_over_time = []
     
-    initial_penalty = get_penalty(image, lightness_penalty, w, using_w)
+    n_pixels = image.shape[0]**2
+    initial_penalty = get_penalty(image, lightness_penalty, w_pos, w_neg)
+    initial_avg_penalty = initial_penalty / n_pixels
         
     for i in range(nlines):
 
         if i%10 == 0:
-            penalty = get_penalty(image, lightness_penalty, w, using_w)
+            
+            penalty = get_penalty(image, lightness_penalty, w_pos, w_neg)
+            avg_penalty = penalty / n_pixels
+            time_list.append(time.time())
+            
             if i != 0:
-                t = time.time() - t0
-                T = t * nlines / i
-                for j in range(3):
-                    print("{}/{}, progress = {}%, time = {}, total time = {}"
-                          .format(len(list_of_lines), i, np.round(100*(1 - penalty/initial_penalty), 2),
-                                  hms_format(t), hms_format(T)), end="\r")
-            else:
-                print("{}/{}, progress = {}%"
-                      .format(len(list_of_lines), i, np.round(100*(1 - penalty/initial_penalty), 2)), end="\r")
-            penalty_over_time.append(penalty)
                 
-        image, line, adding = optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of_lines, w, using_w)
+                n = int(i/10)
+                n_ = min([n,10])
+                
+                t = time_list[n] - time_list[n - n_]
+
+                t_so_far = time_list[n] - time_list[0]
+                t_left = (t/10) * (nlines - i) / n_
+                
+                print("{}/{}, avg penalty = {}, progress = {}%, time = {}, time left = {}"
+                      .format(len(list_of_lines), i, np.round(avg_penalty, 2), np.round(100*(1 - penalty/initial_penalty), 2),
+                              hms_format(t_so_far), hms_format(t_left)), end="\r")
+            else:
+                print("{}/{}, avg penalty = {}, progress = {}%"
+                      .format(len(list_of_lines), i, np.round(avg_penalty, 2), np.round(100*(1 - penalty/initial_penalty), 2)), 
+                      end="\r")
+                
+            avg_penalty_over_time.append(avg_penalty)
+                
+        image, line, adding = optimise_fitness(image, nrandom, darkness, lightness_penalty, npins, list_of_lines, w_pos, w_neg)
         
         if adding:
             list_of_lines.append(line)
@@ -130,89 +144,154 @@ def find_lines(image, nlines, nrandom, darkness, lightness_penalty, npins, w, us
             list_of_lines.remove(line)
     
     clear_output()
-    penalty = get_penalty(image, lightness_penalty, w, using_w)
-    print("{}/{}, progress = {}%"
-          .format(len(list_of_lines), nlines, int(penalty), np.round(100*(1 - penalty/initial_penalty), 2)))
-    penalty_over_time.append(penalty)
+    penalty = get_penalty(image, lightness_penalty, w_pos, w_neg)
+    avg_penalty = penalty / n_pixels
+    print("{}/{}, avg penalty = {}, progress = {}%"
+          .format(len(list_of_lines), nlines, np.round(avg_penalty, 2), np.round(100*(1 - penalty/initial_penalty), 2)))
+    avg_penalty_over_time.append(avg_penalty)
     
-    t = time.time() - t0
+    t = time.time() - time_list[0]
     print("time = " + hms_format(t))
     
-    return list_of_lines
+    return (list_of_lines, avg_penalty_over_time, image)
 
 
 def hms_format(t):
+    
     t = [int(t/3600), int((t%3600)/60), int(t%60)]
+    
     for i in range(3):
         t[i] = "0"*int(2-len(str(t[i]))) + str(t[i])
     return "{}:{}:{}".format(t[0],t[1],t[2])
 
 
-def get_penalty(image, lightness_penalty, w, using_w):
+def get_penalty(image, lightness_penalty, w_pos, w_neg):
     
-    if using_w:
-        image_2 = image * w
-        return sum(image_2[image_2>0]) - sum(image_2[image_2<0])*lightness_penalty
-    else:
-        return sum(image[image>0]) - sum(image[image<0])*lightness_penalty
-    
-    
-def prepare_image(file_name, size, weighting=False):
-    
-    image = Image.open(file_name).resize((size,size))
-    
-    if weighting:    
-        image = 1 - np.array(image.convert(mode="L").getdata()).reshape((size,size)) / 255
-    else:
-        image = 255 - np.array(image.convert(mode="L").getdata()).reshape((size,size))
+    return sum((image*w_pos)[image>0]) - lightness_penalty*sum((image*w_neg)[image<0])
 
-    for (i,j) in product(range(size), range(size)):
-        if ((i - (size-1)*0.5)**2 + (j - (size-1)*0.5)**2)**0.5 > size*0.5:
+
+def prepare_image(file_name, wheel_pixel_size, colour=False, weighting=False):
+    
+    image = Image.open(file_name).resize((wheel_pixel_size,wheel_pixel_size))
+    
+    if colour:
+        image = np.array(image.convert(mode="HSV").getdata()).reshape((wheel_pixel_size,wheel_pixel_size,3))[:,:,1]
+    elif weighting:     
+        image = 1 - np.array(image.convert(mode="L").getdata()).reshape((wheel_pixel_size,wheel_pixel_size)) / 255
+    else:
+        image = 255 - np.array(image.convert(mode="L").getdata()).reshape((wheel_pixel_size,wheel_pixel_size))
+
+    for (i,j) in product(range(wheel_pixel_size), range(wheel_pixel_size)):
+        if ((i - (wheel_pixel_size-1)*0.5)**2 + (j - (wheel_pixel_size-1)*0.5)**2)**0.5 > wheel_pixel_size*0.5:
             image[i,j] = 0                                
             
     return image.T[:,::-1]
 
 
-def save_plot(lines, npins, size, nail_pixel_size, file_name):
+def prepare_unif_weighting(wheel_pixel_size):
+    
+    image = np.ones((wheel_pixel_size,wheel_pixel_size))
+    
+    for (i,j) in product(range(wheel_pixel_size), range(wheel_pixel_size)):
+        if ((i - (wheel_pixel_size-1)*0.5)**2 + (j - (wheel_pixel_size-1)*0.5)**2)**0.5 > wheel_pixel_size*0.5:
+            image[i,j] = 0 
         
-    pins = generate_pins(npins, size, nail_pixel_size)
+    return image
+
+
+def plot_lines(list_coloured_lines, list_colours, npins, wheel_pixel_size, nail_pixel_size):
+    
+    pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
     
     for i in range(len(pins)):
-        pins[i] = [pins[i][0],size-pins[i][1]]
+        pins[i] = [pins[i][0],wheel_pixel_size-pins[i][1]]
     
-    thread_image = Image.new('L', (size,size), 255)
+    thread_image = Image.new('RGB', (wheel_pixel_size,wheel_pixel_size), (255,255,255))
     draw = ImageDraw.Draw(thread_image)
+    
+    n_colours = len(list_coloured_lines)
+    
+    for i in range(n_colours):
+        lines = [(pins[n[0]], pins[n[1]]) for n in list_coloured_lines[i]]
+        for j in lines:
+            draw.line((tuple(j[0]), tuple(j[1])), fill=list_colours[i]) 
+    
+    thread_image.show()
+    
+    
+def save_plot(list_coloured_lines, list_colours, npins, wheel_pixel_size, nail_pixel_size, file_name):
         
-    lines = [(pins[n[0]], pins[n[1]]) for n in lines]
-    for j in lines:
-        draw.line((tuple(j[0]), tuple(j[1])), fill=0)
+    pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
+    
+    for i in range(len(pins)):
+        pins[i] = [pins[i][0],wheel_pixel_size-pins[i][1]]
+    
+    thread_image = Image.new('RGB', (wheel_pixel_size,wheel_pixel_size), (255,255,255))
+    draw = ImageDraw.Draw(thread_image)
+    
+    n_colours = len(list_coloured_lines)
+    
+    for i in range(n_colours):
+        lines = [(pins[n[0]], pins[n[1]]) for n in list_coloured_lines[i]]
+        for j in lines:
+            draw.line((tuple(j[0]), tuple(j[1])), fill=list_colours[i])
         
     thread_image.save(file_name, format="JPEG")
+
     
     
 # ======================================= SECTION 2 =======================================
     
     
-real_size = 0.58
-npins = 20
-size = 1000
-nail_size = 75
-nlines = 200
-nrandom = 50
-darkness = 150
-lightness_penalty = .5
+    
+wheel_real_size = 0.58
+nail_real_size = 6 * (10**-3)
+wheel_pixel_size = 3000
+nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
 
-pins = generate_pins(npins, size, nail_size)
+npins = 192
+pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
 
-image = prepare_image("churchill_9.jpg", size)
-image_w = prepare_image("churchill_w4.jpg", size, weighting=True)
+image = prepare_image("db_BLACK.jpg", 3000)
+image_w_pos = prepare_image("db_BLACK_wpos.jpg", 3000, weighting=True)
+image_w_neg = prepare_image("db_BLACK_wneg.jpg", 3000, weighting=True)
+image_RED = prepare_image("db_RED.jpg", 3000)
+image_BLUE = prepare_image("db_BLUE.jpg", 3000)
+unif_w = prepare_unif_weighting(3000)
 
-lines = find_lines(image, nlines, nrandom, darkness, lightness_penalty, npins, w=image_w, using_w=True)
+fig, axs = plt.subplots(1,5,figsize=(15,15));
+for (i,j) in zip(range(5), [image, image_w_pos, image_w_neg, image_RED, image_BLUE]):
+    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
+    
+    
+    
+# ======================================= SECTION 3 =======================================   
+    
+    
+    
+lines_BLACK, avg_penalty_over_time, image = find_lines(image, nlines=3600, nrandom=400, darkness=170, lightness_penalty=0.45, 
+                                                    npins=192, w_pos=image_w_pos, w_neg=image_w_neg)
 
-save_plot(lines, npins, size, nail_size, "new_file")
+lines_RED, avg_penalty_over_time, image = find_lines(image_RED, nlines=800, nrandom=500, 
+                                                        darkness=150, lightness_penalty=0.4,
+                                                        npins=192, w_pos=unif_w, w_neg=unif_w)
+
+lines_BLUE, avg_penalty_over_time, image = find_lines(image_BLUE, nlines=600, nrandom=500, 
+                                                         darkness=100, lightness_penalty=0.15,
+                                                         npins=192, w_pos=unif_w, w_neg=unif_w)
+
+save_plot([lines_11], [(0,0,0)], npins=192, 
+          wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, 
+          file_name="db_BLACK_output")
+
+save_plot([lines_BLUE_03, lines_RED_02, lines_11], 
+          [(0,100,255), (255,0,0), (0,0,0)], 
+          npins=192, wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="db_FULL_COLOUR_output")
 
 
-# ======================================= SECTION 3 =======================================
+
+# ======================================= SECTION 4 =======================================
+
 
 
 class edge():
@@ -246,7 +325,7 @@ class edge():
         
         return edge_list
     
-    
+
 def extra_edges_parity_correct(edge_list, n_vertices):
         
     d = {n : 0 for n in range(n_vertices)}
@@ -286,6 +365,7 @@ def extra_edges_parity_correct(edge_list, n_vertices):
             A = 2*a+1
             B = 2*b+1
             extra_edges.append(edge(A,B))  
+        print("1st stage: pairing {}, {}, with distance = {}".format(A,B,distance))
         
     while sum([abs(i) for i in d.values()]) > 0:      
         need_a_zero = [n for n in d.keys() if d[n] > 0]
@@ -296,6 +376,7 @@ def extra_edges_parity_correct(edge_list, n_vertices):
         A = 2*a
         B = 2*b + 1
         extra_edges.append(edge(A,B))
+        print("2nd stage: pairing {}, {}, with distance = {}".format(A,B,distance))
 
     return extra_edges
 
@@ -317,44 +398,42 @@ def get_closest_pair(need_a_zero, need_a_one, n_vertices):
 
 def extra_edges_connect_graph(edge_list):
     
-    full_edge_list = []
+    full_vertex_set = set()
     for i in edge_list:
-        if i.A_vertex not in full_edge_list:
-            full_edge_list.append(i.A_vertex)
-        if i.A_vertex not in full_edge_list:
-            full_edge_list.append(i.A_vertex)
-    
-    s = set([edge_list[0].A_vertex, edge_list[0].B_vertex])
+        full_vertex_set.add(i.A_vertex)
+        full_vertex_set.add(i.B_vertex)
+        
+    connected_vertex_set = set([edge_list[0].A_vertex, edge_list[0].B_vertex])
     
     extra_edges = []
     
-    while len(s) < len(full_edge_list):
+    while len(connected_vertex_set) < len(full_vertex_set):
         
-        s, found_new_vertex = add_connected_vertex(s, edge_list)
+        connected_vertex_set, found_new_vertex = add_connected_vertex(connected_vertex_set, edge_list)
                 
         if not found_new_vertex:
             
-            v0, v1 = get_adjacant_vertices(s, set(range(n_vertices)) - s)
+            v0, v1 = get_adjacant_vertices(connected_vertex_set, full_vertex_set - connected_vertex_set)
             
             extra_edges += [edge(2*v0, 2*v1), edge(2*v0+1, 2*v1+1)]
             
-            s.add(v0)
-            s.add(v1)
+            connected_vertex_set.add(v0)
+            connected_vertex_set.add(v1)
             
     return extra_edges
 
 
-def add_connected_vertex(s, edge_list):
+def add_connected_vertex(conected_vertex_set, edge_list):
 
     for i in edge_list:
         
-        if (i.A_vertex in s and i.B_vertex not in s) or (i.B_vertex in s and i.A_vertex not in s):
+        if (i.A_vertex in conected_vertex_set) ^ (i.B_vertex in conected_vertex_set):
                 
-            s.add(i.A_vertex)
-            s.add(i.B_vertex)
-            return (s, True)
+            conected_vertex_set.add(i.A_vertex)
+            conected_vertex_set.add(i.B_vertex)
+            return (conected_vertex_set, True)
     
-    return (s, False)
+    return (conected_vertex_set, False)
 
 
 def get_adjacant_vertices(s, t):
@@ -364,7 +443,7 @@ def get_adjacant_vertices(s, t):
             if abs(i-j) == 1:
                 return (i, j) 
             
-            
+
 def create_cycle(edge_list, first_edge):
     
     cycle = [first_edge]
@@ -385,7 +464,7 @@ def create_cycle(edge_list, first_edge):
         except:
             
             return cycle, edge_list
-        
+
         
 def add_cycle(cycle, edge_list):
     
@@ -393,12 +472,15 @@ def add_cycle(cycle, edge_list):
         
         cycle = [cycle[-1]] + cycle[:-1]
         
-        edge_list_copy = edge_list.copy()
-        new_cycle, edge_list_copy = create_cycle(edge_list_copy, cycle[-1])
-        if len(new_cycle) > 1:
-            return cycle + new_cycle[1:], edge_list_copy
-        
-        
+        try:
+            edge_list_copy = edge_list
+            new_cycle, edge_list_copy = create_cycle(edge_list_copy, cycle[-1])
+            if len(new_cycle) > 1:
+                return cycle + new_cycle[1:], edge_list_copy
+        except:
+            print("error")
+            
+            
 def create_full_cycle(edge_list):
     
     cycle, edge_list = create_cycle(edge_list[1:], edge_list[0])
@@ -453,7 +535,7 @@ def edges_to_output(line_list, n_vertices):
             
         output.append("{}-{}{}".format(n1, n2, n3))
     
-    return full_cycle, output
+    return full_cycle, l, output
 
 
 def cut_down(full_cycle, l):
@@ -482,25 +564,36 @@ def display(output):
             print("\n{}\n".format(count))
             
             
-def info(lines, npins, size, nail_size, real_size):
+def info(lines, npins, wheel_pixel_size, wheel_real_size, nail_real_size):
+    
+    nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
     
     lines = [[i.A, i.B] for i in lines]
-    
-    pins = generate_pins(npins, size, nail_size)
+    pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
     lines = [(pins[n[0]], pins[n[1]]) for n in lines]
-    
+
     d = 0
     for i in lines:
         d += ((i[0][0]-i[1][0])**2 + (i[0][1]-i[1][1])**2) ** 0.5
     
-    d = d * (real_size / size)
+    d = d * (wheel_real_size / wheel_pixel_size)
     
-    print("distance = {} meters\n# lines = {}\n".format(int(d), len(lines)))   
+    print("distance = {} meters\n# lines = {}\n".format(int(d), len(lines)))
     
-    
+   
+   
 # ======================================= SECTION 4 =======================================  
-    
-    
-output = edges_to_output(lines, npins)
-info(output[0], npins, size, nail_size, real_size)
-display(output[1])
+ 
+ 
+ 
+final_instructions_black = edges_to_output(lines_BLACK, 192)
+info(final_instructions_black[0], npins=192, wheel_pixel_size=3000, wheel_real_size=0.58, nail_real_size=6*(10**-3))
+display(final_instructions_black[2])
+
+final_instructions_blue = edges_to_output(lines_BLUE, 192)
+info(final_instructions_blue[0], npins=192, wheel_pixel_size=3000, wheel_real_size=0.58, nail_real_size=6*(10**-3))
+display(final_instructions_blue[2])
+
+final_instructions_red = edges_to_output(lines_RED_02, 192)
+info(final_instructions_red[0], npins=192, wheel_pixel_size=3000, wheel_real_size=0.58, nail_real_size=6*(10**-3))
+display(final_instructions_red[2])
