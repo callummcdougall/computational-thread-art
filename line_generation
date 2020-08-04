@@ -280,11 +280,11 @@ lines_BLUE, avg_penalty_over_time, image = find_lines(image_BLUE, nlines=600, nr
                                                          darkness=100, lightness_penalty=0.15,
                                                          npins=192, w_pos=unif_w, w_neg=unif_w)
 
-save_plot([lines_11], [(0,0,0)], npins=192, 
+save_plot([lines_BLACK], [(0,0,0)], npins=192, 
           wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, 
           file_name="db_BLACK_output")
 
-save_plot([lines_BLUE_03, lines_RED_02, lines_11], 
+save_plot([lines_BLUE, lines_RED, lines_BLACK], 
           [(0,100,255), (255,0,0), (0,0,0)], 
           npins=192, wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="db_FULL_COLOUR_output")
 
