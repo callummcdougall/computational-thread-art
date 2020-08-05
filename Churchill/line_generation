@@ -8,13 +8,10 @@ pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
 
 image_m = prepare_image("churchill_monochrome.jpg", 3867)
 image_w = prepare_image("churchill_weighting.jpg", 3867, weighting=True)
-
-fig, axs = plt.subplots(1,3,figsize=(15,15));
-for (i,j) in zip(range(3), [image_m, image_c, image_w]):
-    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
     
-lines_m, penalty_over_time_m, image_m = find_lines(image_m, nlines=6000, nrandom=300, 
-                                                   darkness=170, lightness_penalty=0.55, 
-                                                   npins=168, w_pos=image_w, w_neg=image_w)
+lines, penalty_over_time, image = find_lines(image_m, nlines=4500, nrandom=300, 
+                                             darkness=170, lightness_penalty=0.55, 
+                                             npins=168, w_pos=image_w, w_neg=image_w)
 
-save_plot([lines_m], [(0,0,0)], npins=168, size=3867, nail_pixel_size=s, file_name="churchill_output")
+save_plot([lines], [(0,0,0)], npins=168, 
+          wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="churchill_output")
