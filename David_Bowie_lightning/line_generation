@@ -6,32 +6,27 @@ nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
 npins = 192
 pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
 
-image = prepare_image("db_BLACK.jpg", 3000)
+image_BLACK = prepare_image("db_BLACK.jpg", 3000)
 image_w_pos = prepare_image("db_BLACK_wpos.jpg", 3000, weighting=True)
 image_w_neg = prepare_image("db_BLACK_wneg.jpg", 3000, weighting=True)
 image_RED = prepare_image("db_RED.jpg", 3000)
 image_BLUE = prepare_image("db_BLUE.jpg", 3000)
 unif_w = prepare_unif_weighting(3000)
-
-fig, axs = plt.subplots(1,5,figsize=(15,15));
-for (i,j) in zip(range(5), [image, image_w_pos, image_w_neg, image_RED, image_BLUE]):
-    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
     
-lines_BLACK, avg_penalty_over_time, image = find_lines(image, nlines=3600, nrandom=400, darkness=170, lightness_penalty=0.45, 
-                                                    npins=192, w_pos=image_w_pos, w_neg=image_w_neg)
+lines_BLACK, avg_penalty_over_time, image = find_lines(image_BLACK, nlines=3600, nrandom=200, 
+                                                       darkness=170, lightness_penalty=0.45, 
+                                                       npins=192, w_pos=image_w_pos, w_neg=image_w_neg)
 
-lines_RED, avg_penalty_over_time, image = find_lines(image_RED, nlines=800, nrandom=500, 
-                                                        darkness=150, lightness_penalty=0.4,
-                                                        npins=192, w_pos=unif_w, w_neg=unif_w)
+lines_RED, avg_penalty_over_time, image = find_lines(image_RED, nlines=800, nrandom=250, 
+                                                     darkness=150, lightness_penalty=0.4,
+                                                     npins=192, w_pos=unif_w, w_neg=unif_w)
 
-lines_BLUE, avg_penalty_over_time, image = find_lines(image_BLUE, nlines=600, nrandom=500, 
-                                                         darkness=100, lightness_penalty=0.15,
-                                                         npins=192, w_pos=unif_w, w_neg=unif_w)
+lines_BLUE, avg_penalty_over_time, image = find_lines(image_BLUE, nlines=600, nrandom=250, 
+                                                      darkness=100, lightness_penalty=0.15,
+                                                      npins=192, w_pos=unif_w, w_neg=unif_w)
 
 save_plot([lines_BLACK], [(0,0,0)], npins=192, 
-          wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, 
-          file_name="db_BLACK_output")
+          wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="db_BLACK_output")
 
-save_plot([lines_BLUE, lines_RED, lines_BLACK], 
-          [(0,100,255), (255,0,0), (0,0,0)], 
-          npins=192, wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="db_FULL_COLOUR_output")
+save_plot([lines_BLUE, lines_RED, lines_BLACK], [(0,100,255), (255,0,0), (0,0,0)], npins=192, 
+          wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="db_FULL_COLOUR_output")
