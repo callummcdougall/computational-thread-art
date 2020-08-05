@@ -1,1 +1,25 @@
+wheel_real_size = 0.58
+nail_real_size = 6 * (10**-3)
+wheel_pixel_size = 3500
+nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
 
+npins = 160
+pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
+
+image = prepare_image("jellyfish.jpg", 3500)
+image_w = prepare_image("jellyfish_weighting.jpg", 3500, weighting=True)
+image_white = prepare_image("jellyfish_white.jpg", 3500)
+image_white_w = prepare_image("jellyfish_white_weighting.jpg", 3500, weighting=True)
+
+fig, axs = plt.subplots(1,4,figsize=(15,15));
+for (i,j) in zip(range(4), [image, image_w, image_white, image_white_w]):
+    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
+
+lines, penalty_over_time, image = find_lines(image, nlines=4500, nrandom=250, darkness=140, lightness_penalty=0.25, 
+                                             npins=160, w_pos=image_w, w_neg=image_w)
+
+lines_white, penalty_over_time, image = find_lines(image_white, nlines=3000, nrandom=250, darkness=175, lightness_penalty=0.9, 
+                                             npins=160, w_pos=image_white_w, w_neg=image_white_w)
+
+save_plot([lines, lines_white], [(0,0,0), (255,255,255)], 
+          npins=160, wheel_pixel_size=wheel_pixel_size, nail_pixel_size=nail_pixel_size, file_name="jellyfish_output")
