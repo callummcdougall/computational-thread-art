@@ -6,14 +6,10 @@ nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
 npins = 180
 pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
 
-image = prepare_image("butterfly.png", 2500)
-image_w = prepare_unif(2500)
-
-fig, axs = plt.subplots(1,2,figsize=(15,15));
-for (i,j) in zip(range(2), [image, image_w]):
-    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
+image_black = prepare_image("butterfly.png", 2500)
+image_w = prepare_unif_weighting(2500)
     
-lines, avg_penalty_over_time, image = find_lines(image_6, nlines=3500, nrandom=300, 
+lines, avg_penalty_over_time, image = find_lines(image_black, nlines=3500, nrandom=250,
                                                  darkness=180, lightness_penalty=0.55, 
                                                  npins=160, w_pos=image_w, w_neg=image_w)
 
