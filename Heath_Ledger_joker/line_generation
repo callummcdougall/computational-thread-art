@@ -6,24 +6,17 @@ nail_pixel_size = (nail_real_size / wheel_real_size) * wheel_pixel_size
 npins = 180
 pins = generate_pins(npins, wheel_pixel_size, nail_pixel_size)
 
-image = prepare_image("joker.jpg", 2500)
+image_black = prepare_image("joker.jpg", 2500)
 image_wpos = prepare_image("joker_wpos.jpg", 2500, weighting=True)
 image_wneg = prepare_image("joker_wneg.jpg", 2500, weighting=True)
 image_mouth = prepare_image("joker_mouth.jpg", 2500)
+image_mouth_w = prepare_image("joker_mouth.jpg", 2500, weighting=True)
 
-fig, axs = plt.subplots(1,4,figsize=(15,15));
-for (i,j) in zip(range(4), [image, image_wpos, image_wneg, image_mouth]):
-    axs[i].imshow(j[:,::-1].T, cmap=plt.get_cmap("Greys"));
+lines_black, penalty_over_time, image = find_lines(image_black, nlines=5000, nrandom=200, darkness=175, lightness_penalty=0.4, 
+                                                   npins=180, w_pos=image_wpos, w_neg=image_wneg)
 
-(14) 2962/3000, (175,0.4), (15,2+,6-)
+lines_mouth, penalty_over_time, image = find_lines(image_mouth, nlines=400, nrandom=250, darkness=255, lightness_penalty=0.4, 
+                                                   npins=180, w_pos=image_mouth_w, w_neg=image_mouth_w)
 
-
-lines, penalty_over_time, image = find_lines(image, nlines=5000, nrandom=250, darkness=175, lightness_penalty=0.4, 
-                                             npins=180, w_pos=image_wpos, w_neg=image_wneg)
-
-lines_mouth, penalty_over_time, image = find_lines(image_mouth, nlines=400, nrandom=500, darkness=255, lightness_penalty=0.4, 
-                                                   npins=180, w_pos=image_mouth, w_neg=image_mouth)
-
-save_plot([lines_mouth, lines], [(255,0,0), (0,0,0)], 
+save_plot([lines_mouth, lines_black], [(255,0,0), (0,0,0)], 
           npins=180, wheel_pixel_size=3000, nail_pixel_size=nail_pixel_size, file_name="joker_output")
-         
