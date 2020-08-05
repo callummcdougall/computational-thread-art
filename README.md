@@ -2,7 +2,7 @@
 
 ![Thread-art David Bowie: computer output](https://miro.medium.com/max/612/1*qQECZMJGxPEqIZ64jAI33Q.jpeg)
 
-This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 3 sections in this document are: 
+This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 4 sections in this document are: 
 * **Algorithm description** (which includes **High level description**, giving the broad strokes of how the algorithm works, and **Function by function**, which looks at each function and its purpose in detail)
 * **How to run**, which gives the instructions for running the **line_generation** file. 
 * **Algorithm Examples**, where I describe how I've provided example pieces of code that you can try out. 
@@ -117,7 +117,7 @@ The second half of the code creates a Eulerian path, which is a path around the 
 
 # How to run
 
-I would recommend running this algorithm in Jupyter notebooks, or something similar. I appreciate that most code on GitHub is designed to be downloaded and run from command line, but this is not. The reason I have chosen this is because there are 3 main stages of the algorithm: (1) the formatting of the image, (2) the generation of the lines, and (3) the creation of a Eulerian path connecting them. Each stage is only performed if the previous stage is satisfactory, so it makes sense to be able to run the code in sequential blocks, depending on which stage you are at. You should only need 4 cells: one to define all the functions used in steps 1 and 2, one to run the code for steps 1 and 2, one to define the functions used in step 3, and one to run the code for step 3. This suggested partition is clearly indicated in the Python file.
+I would recommend running this algorithm in Jupyter notebooks, or something similar. The reason I have chosen this is because there are 3 main stages of the algorithm: (1) the formatting of the image, (2) the generation of the lines, and (3) the creation of a Eulerian path connecting them. Each stage is only performed if the previous stage has been done, so it makes sense to be able to run the code in sequential blocks. You should only need 4 cells: one to define all the functions used in steps 1 and 2 (this is labelled as "SECTION 1" in the line_generation file), one to run the code for steps 1 and 2, one to define the functions used in step 3 (examples of these can be found in the files in this repository), and one to run the code for step 3 (this is "SECTION 2" in the line_generation file). 
 
 1. **IMAGE PREPARATION**
 
