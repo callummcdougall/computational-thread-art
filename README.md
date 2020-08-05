@@ -175,7 +175,9 @@ As the image shows, I have stuck numbers around the outside of the wheel, and id
 
 # Algorithm Examples
 
-In previous sections, I've described how to choose your own parameters and run your own program. However, there are lots of things to consider and it might feel a bit daunting, which is why I've included some files of example pieces I've made. Each file includes the functions that I ran, the images that I used, and the computer output that it generated. Hopefully you'll be able to try running these, and get an idea for how the algorithm works. If they aren't working for you, please send me a message and I'd be happy to help!
+In previous sections, I've described how to choose your own parameters and run your own program. However, there are lots of things to consider and it might feel a bit daunting, which is why I've included some files of example pieces I've made. Each file includes the functions that I ran, the images that I used, and the computer output that it generated. Hopefully you'll be able to try running these, and get an idea for how the algorithm works. Hopefully these should all work out of the box, if any of them don't then please let me know.
+
+I'm going to assume most people reading this are only interested in generating the computer output rather than the actual physical pieces, which is why I haven't included this part of the code in the examples. If anyone reading this is interested in getting the actual threading instructions, please send me a message and I can include this too.
 
 # Final thoughts
 
