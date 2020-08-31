@@ -3,131 +3,37 @@
 ![Thread-art David Bowie: computer output](https://miro.medium.com/max/612/1*qQECZMJGxPEqIZ64jAI33Q.jpeg)
 
 This project contains code that renders an image as a series of lines connecting pins around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 4 sections in this document are: 
-* **Algorithm description** (which includes **High level description**, giving the broad strokes of how the algorithm works, and **Function by function**, which looks at each function and its purpose in detail)
-* **How to run**, which gives the instructions for running the **line_generation** file. 
+* **Algorithm description**, which gives a broad picture of how the algorithm works. For more detail, see the Jupyter Notebook file (where each function is explained).
+* **How to run**, which give instructions for generating your own output, as well as tips on what images work best.
 * **Algorithm Examples**, where I describe how I've provided example pieces of code that you can try out. 
 * **Final thoughts**, in which I outline the future directions I might take this algorithm.
 
 # Algorithm description
 
-## High level description
-
-This is a very broad description of the algorithm. It misses a lot of finer points, so if you read anything in this next paragraph that is contradicted elsewhere, it is likely incorrect here, but has been simplified for the purpose of explainability.
+This is a very broad description of the algorithm. It misses a lot of finer points, so if you read anything in this next paragraph that is contradicted when you read the Jupyter Notebook file, it is likely incorrect here, but has been simplified for the purpose of explainability.
 
 First, an image is converted into a square array of greyscale pixel values from 0 to 255, where 0 represents white, and 255 black. The coordinates for the pin positions are calculated. A number of lines are chosen between random pairs of pins, and each line is tested by calculating how much it reduces the overall penalty (which is defined as the sum of all the absolute pixel values in the image). A line will change the penalty by reducing the value of all the pixels it goes through by some fixed amount. For instance, a line through a mostly black area might change pixel values from 255 to 155 (reducing penalty a lot), whereas a line through a mostly white area (or an area which already has a lot of lines) might change pixel values from 20 to -80, which actually makes the penalty worse. Once all these penalty changes have been calculated, the line which reduces the penalty the most will be chosen, the pixel values will be edited accordingly, and this process will repeat. If a randomly selected line happens to already have been drawn, the algorithm will compute the change in penalty from removing it rather than adding it. Once the random line selection has run a certain number of times, the algorithm terminates. For the images that use colour, I usually just run the algorithm for each colour separately, using very specific images designed made with photo editing software (see the David Bowie lightning project for a perfect example of this).
 
-The second half of the code creates a Eulerian path, which is a path around the vertices that uses each edge exactly once. For this to exist, we require 2 conditions: parity (the number of lines connected to each side of the pin must be the same, since every line must enter the pin on one side and leave on the other side), and connectedness (every pin must be reachable from every other). The first thing the code does is add lines so that these 2 conditions are satistfied (these added lines go around the outside of the wheel when I make my art in real life, so they don't interfere with the image). Once this is done, then a path is iteratively built up using Hierholzer's algorithm. Essentially, this works by drawing a loop, and if there are any edges left un-drawn, it goes through the loop and finds a place where it can "stick on" another loop. If the conditions of parity and connectedness are satisfied, then we can iterate this process until all edges are drawn.
-
-## Function-by-function description
-
-#### Functions for image preparation & line generation
-
-***generate_pins***
-* Generates the position of pins, given a particular number of pins, image size, and nail pixel size.
-* Creates 2 lists of vertex coordinates (one for the anticlockwise side of the pins, one for the clockwise size), and meshes them together so that the order they appear in the final output is the order of vertices anticlockwise around the frame.
-
-***through_pixels***
-* Finds which pixels a line between particular pins runs through.
-* Adjusted so that the number of pixels (approximately) equals the distance between the pins.
-
-***fitness***
-* Measures how much line improves image. improvement is difference in penalty, i.e. new penalty - old penalty (where a smaller penalty is better).
-* Penalty is the sum of absolute values of positive pixels, plus absolute values of negative pixels times a lightness penalty (for more explanation, see section **How to run**).
-* The *adding* parameter in fitness means that it can calculate the improvement either from adding a line, or from removing a line that is already in the image.
-
-***optimise_fitness***
-* Process of adding a new line is as follows:
-    1. Generate random lines (ensuring they aren't the same line, or the same but reversed, or connecting the same pin), then find the line with the best fitness.
-    2. Subtract this line from the image.
-    3. Return the new image, the best line (i.e. which vertices are on either end of it), and a boolean which specifies whether a line is being added or removed.
-    
-***find_lines***
-* Calls *optimise_fitness* multiple times to draw a set of lines.
-* Updates the image and the list of lines with each line drawn.
-* Every 10 lines drawn, prints output that describes the progress of the algorithm, including lines drawn and run time.
-
-***hms_format***
-* Takes a time, and converts it into hh:mm:ss. Used in *find_lines* function, to report alg progress.
-
-***get_penalty***
-* Calculates the total penalty of the image.
-
-***prepare_image***
-* Takes a jpeg or png image file, and converts it into an array of bytes.
-* weighting=True means the image is meant to be an importance weighting (so the array returned has values between 0 and 1, where 1 means black, so high importance, and 0 means white, so low importance).
-* colour=True means the image is meant to be read based on saturation instead of darkness of pixels; this is one way you can use colour in your images (although this isn't suitable for many images, I only used it for the tiger).
-
-***prepare_unif_weighting***
-* Generates an image with a uniform weighting, which can be used if you haven't specifically designed a weighting.
-
-***save_plot***
-* Saves the lines generated by the algorithm in the working directory - can then be opened with Paint, or some other standard editor.
-
-#### Functions (and classes) for Eulerian path
-
-***edge***
-* Creates a class for edges that makes the path-finding process easier. Among the things this class allows me to do efficiently are:
-   * Find the pin number, the node number (these two are different, as each pin has 2 nodes, corresponding to its 2 sides) and the orientation (i.e. which pin side is being referred to) of the two vertices which are connected by the edge.
-   * Flip the direction of an edge (i.e. from node B to A, rather than A to B)
-   * Look for edges that are connected to this edge (connected in the sense that the pair of edges share the same pin number, but not the same node number, so they can be traced by thread sequentially).
-
-***extra_edges_parity_correct***
-* Takes in edge_list and returns the extra edges needed so that every pin has the same number of edges on either side.
-* This algorithm is quite complicated, since I have put a lot of thought into how to make sure the extra edges added are the easiest to physically implement, so I will not go into detail - if people are interested, please send a message!
-
-***get_closest_pair***
-* Used in the extra_edges_parity_correct algorithm, to find the closest pair of vertices to match up.
-
-***extra_edges_connect_graph***
-* Adds extra edges so that the graph is connected.
-
-***add_connected_vertex***
-* Takes a set of vertices and an edge list, and adds a vertex not currently in s that can be connected (by an edge in the edge_list) to the rest of s.
-* The boolean at the end says whether a new vertex was successfully added, if not then it is necessary to add a new edge.
-
-***get_adjacant_vertices***
-* Takes a set of vertices and its compliment, and returns a pair of vertices (in set and compliment respectively) that are a distance of 1 apart from each other.
-
-***create_cycle***
-* Creates a path from edges in edge_list, starting from first_edge. 
-* Returns path, and new reduced edge_list (with the edges that are added to the path removed from edge_list).
-* Note that the path returned is only guaranteed to be a cycle if the edge_list is parity-corrected.
-
-***add_cycle***
-* Takes a cycle and edge_list, and goes through the cycle trying to find a place to insert a new cycle, using edges from edge_list.
-* Once it finds a place, it inserts a cycle using *create_cycle*, and returns the new extended cycle, and the new reduced edge_list.
-
-***create_full_cycle***
-* Takes edge_list, creates a cycle, then keeps adding cycles to it using *add_cycle*, until no more cycles can be added.
-* If the edge_list is connected and parity-corrected, this full cycle will contain all edges.
-
-***edges_to_output***
-* Takes in non-parity-corrected edges, and uses all the functions above to return a formatted output.
-* Also uses cut_down function (see below).
-* The format of the output is explained in the **How to run** section.
-
-***cut_down***
-* Removes sequences of multiple "outside" strings, replacing them with one direct string.
-
-***display***
-* Prints all the lines, in groups of 100.
-
-***info***
-* Prints out the total distance (in meters) of the thread, and the number of lines.
+The second half of the code creates a Eulerian path, which is a path around the vertices that uses each edge exactly once. For this to exist, we require 2 conditions: parity (the number of lines connected to each side of the pin must be the same, since every line must enter the pin on one side and leave on the other side), and connectedness (every pin must be reachable from every other). The first thing the code does is add lines so that these 2 conditions are satistfied (these added lines go around the outside of the wheel when I make my art in real life, so they don't interfere with the image). Once this is done, then a path is iteratively built up using Hierholzer's algorithm. Essentially, this works by drawing a loop, and if there are any edges left un-drawn, it goes through the loop and finds a place where it can "stick on" another loop. If the conditions of parity and connectedness are satisfied, then we can iterate this process until all edges are connected in the same loop.
 
 # How to run
 
-I would recommend running this algorithm in Jupyter notebooks, or something similar. The reason I have chosen this is because there are 3 main stages of the algorithm: (1) the formatting of the image, (2) the generation of the lines, and (3) the creation of a Eulerian path connecting them. Each stage is only performed if the previous stage has been done, so it makes sense to be able to run the code in sequential blocks. You should only need 4 cells: one to define all the functions used in steps 1 and 2 (this is labelled as "SECTION 1" in the line_generation file), one to run the code for steps 1 and 2, one to define the functions used in step 3 (examples of these can be found in the files in this repository), and one to run the code for step 3 (this is "SECTION 2" in the line_generation file). 
+I would recommend running this algorithm in Jupyter Notebooks, or something similar (this shouldn't come as a surprise given this is how the documents are saved in this repository). Jupyter Notebooks lend themselves well to running this code; once I have selected an image I usually like to run lots of trials (tweaking the parameters, or editing the image), so the flexibility of notebooks is very useful. If you haven't downloaded Jupyter Notebooks, you can always use it in your browser (which requires a lot less effort!).
 
 1. **IMAGE PREPARATION**
 
-   1i. Have an image (either jpeg or pdf) stored in your current working directory. It must be square in size (if it isn't, it will be squashed into shape). Here are a few tips on choosing and preparing the image:
-      * Generally, images with high contrast work better.
-      * If your image has a background, make sure that it is noticably different in brightness from the foreground. For instance, when preparing portrait images, I sometimes find it helpful to appy a radial gradient to the background, so that it is lighter at the edges of the face, but mid-tone further out. This leads to another point - make sure there is a noticeable change in brightness wherever your image has an important border.
-      * Convert it to black and white first. This isn't strictly necessary because the algorithm does this anyway, but it is useful to get a good idea of what the final output will look like.
-      * Keep in mind that a circular portion of the image will be cropped, not the whole image.
-      * Having a very high resolution image isn't actually as important as you might think. 500px\*500px will usually suffice (although use higher if you can).
-
+   1i. Have an image (either jpg or png) stored in your current working directory. It must be square in size (if it isn't, it will be squashed into shape). Here are a few tips on choosing and preparing the image:
+      * The algorithm is very selective; lots of photos just aren't suitable. If you can't get a decent-looking output in the first 5 prototypes, it's probably best to try a different image.
+      * Convert the image to black and white first; this helps evaluate suitability.
+      * Having a high-res image isn't actually very important, usually 500px\*500px will suffice.
+      * If your image has a background, make sure that it is noticably different in brightness from the foreground. For instance, lots of my images have a radial gradient for the background (this is most visible in the butterfly).
+      * Characteristics of good images: 
+          * good tonal range (i.e. lots of highlights, shadows and midtones)
+          * lots of long straight lines across the image (e.g. angular features if you're doing a portrait)
+      * Characteristics of bad images: 
+          * low contrast
+          * large white (or close-to-white) patches
+          * one side of the image is in shadow (big problem with portraits)
    1ii. Prepare an importance weighting (optional). This is recommended if your picture has a foreground that you want to emphasise. The importance weighting should be an edited version of the original (same size and format, no cropping!). The areas you want most detail on should be painted black, and the other areas should be given a greyscale value representative of the level of detail you require. Here are a few tips on creating the importance weighting:
       * A vignette can improve the image, by allowing the algorithm to put more detail in the centre of the image. Be sure this happens the right way around (i.e. brighter as you get further out), because most vignettes will automatically be darker at the borders instead!
       * Be wary of making the background completely white, because this can have unforseen side effects, such as a number of lines bunching in certain areas. In previous designs of mine based on portrait photos, this has resulted in the appearance of devil horns, due to the accumulation of vertical lines on the edges of faces!
