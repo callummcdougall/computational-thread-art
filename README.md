@@ -14,7 +14,7 @@ The original algorithm for rendering the actual image went as follows: first, an
 
 This original algorithm has been improved significantly, primarily by making the penalty more complicated than just the absolute sum of pixel values. To be precise, the formula for penalty is:
 
-![Formula](https://latex.codecogs.com/svg.latex?Penalty=\frac{\sum_imax(p_iw^+_i,0)+L\cdot\sum_imax(-p_iw^-_i,0)}{N})
+![Formula](https://latex.codecogs.com/svg.latex?Penalty=\frac{\sum_imax(p_iw^+_i,0)-L\cdot\sum_imin(-p_iw^-_i,0)}{N})
 
 where p<sub>i</sub> is the pixel value, w<sup>+</sup> and w<sup>-</sup> are the positive and negative importance weightings, L is the lightness penalty, N is the line norm, and the sum is taken over all pixels the line goes through. 
  * The lightness penalty is a value (usually between 0 and 1) which reduces the penalty for negative pixels (or to put it in terms of the actual artwork, it makes the algorithm more willing to draw too many lines than too few)
