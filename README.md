@@ -75,7 +75,7 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
 
     Below is an image of the cells you need to run to generate output. These cells are found at the end of each Jupyter Notebook. 
     
-    ![churchill_example_alg_2](https://user-images.githubusercontent.com/45238458/91828464-14d44200-ec38-11ea-9ce6-48242760a02a.png)
+    ![churchill_example_alg_2](https://user-images.githubusercontent.com/45238458/91839842-a26b5e00-ec47-11ea-8c98-11403c187cbd.png)
     
     * The first cell finds a thread path through all the edges (this can take about a minute to run for the larger pieces), and prints out the total distance of the image (both in meters of thread, and number of lines). Note, the number of lines will be larger than the number in the program above, because more lines have to be added that go outside the wheel, to allow for a single unbroken path. 
     * The second cell displays the final instructions in the form I use for my threading (this is explained below).
