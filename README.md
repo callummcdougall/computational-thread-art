@@ -2,7 +2,7 @@
 
 ![Thread-art David Bowie: computer output](https://miro.medium.com/max/612/1*qQECZMJGxPEqIZ64jAI33Q.jpeg)
 
-This project contains code that renders an image as a series of lines connecting picture hooks around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The file **line_generation** is a Python script containing all the code required to generate your own pieces of art. The 4 sections in this document are: 
+This project contains code that renders an image as a series of lines connecting picture hooks around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The 4 sections in this document are: 
 * **Algorithm description**, which gives a broad picture of how the algorithm works. For more detail, see the Jupyter Notebook file (where each function is explained).
 * **How to run**, which give instructions for generating your own output, as well as tips on what images work best.
 * **Algorithm Examples**, where I describe how I've provided example pieces of code that you can try out. 
@@ -25,7 +25,7 @@ The second half of the code creates a Eulerian path, which is a path around the 
 
 # How to run
 
-I would recommend running this algorithm in Jupyter Notebooks, or something similar (this shouldn't come as a surprise given this is how the documents are saved in this repository). Jupyter Notebooks lend themselves well to running this code; once I have selected an image I usually like to run lots of trials (tweaking the parameters, or editing the image), so the flexibility of notebooks is very useful. If you haven't downloaded Jupyter Notebooks, you can always use it in your browser (which requires a lot less effort!).
+I would recommend running this algorithm in Jupyter Notebooks, or something similar (this shouldn't come as a surprise given this is how the documents are saved in this repository). Jupyter Notebooks lend themselves well to running this code; once I have selected an image I usually like to run lots of trials (tweaking the parameters, or editing the image), so the flexibility of notebooks is very useful. If you haven't downloaded Jupyter Notebooks, you can always use it in your browser (which requires a lot less effort!). To run the algorithm using your own image, you can take any of my example algorithms (see section Algorithm Examples), and replace the appropriate bits of code.
 
 1. **IMAGE PREPARATION**
 
