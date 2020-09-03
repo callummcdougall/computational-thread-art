@@ -8,7 +8,7 @@ This project contains code that renders an image as a series of lines connecting
 * **Algorithm Examples**, where I describe how I've provided example pieces of code that you can try out. 
 * **Final thoughts**, in which I outline the future directions I might take this algorithm.
 
-A quick note here for anyone who wants to run the algorithm - it takes me quite a while to generate the examples (getting all the files in the right place, etc), so I usually only update these files when I've made a big change to the algorithm. However, when I've made small changes (e.g. speed improvements), I will add the Jupyter Notebook to the main directory (it is called line_generation.ipynb). If you want to generate your own art, please run the line_generation notebook, but with the image-specific parts of the code customised (see HOW TO RUN, Section 2: line generation, for more details on this).
+A quick note here for anyone who wants to run the algorithm - it takes me quite a while to generate the examples (getting all the files in the right place, etc), so I usually only update these files when I've made a big change to the algorithm. However, when I've made small changes (e.g. speed improvements), I will add the Jupyter Notebook to the main directory (it is called line_generation.ipynb). If you want to generate your own art, please run this notebook, but with the image-specific parts of the code customised (see HOW TO RUN, Section 2: line generation, for more details on this).
 
 # Algorithm description
 
