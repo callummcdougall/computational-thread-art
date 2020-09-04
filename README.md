@@ -101,6 +101,6 @@ This project has been a wonderful experience for me - I loved seeing the way in 
 
  <br />
 
-I would also be very interested in moving from 2D to 3D; maybe by constructing pieces that you need to look at in exactly the right way for them to come into focus. For now though, I hope you enjoyed reading about my algorithm, and if you have any questions about it, please feel free to send me a message, I'd love to chat!
+I would also be very interested in moving from 2D to 3D; maybe by constructing pieces that you need to look at in exactly the right way for them to come into focus. For now though, I hope you enjoyed reading about my algorithm, If you have any questions about it, please feel free to send me a message, I'd love to chat!
 
 Happy coding!
