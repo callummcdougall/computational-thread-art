@@ -94,9 +94,9 @@ In previous sections, I've described how to choose your own parameters and run y
 # Final thoughts
 
 This project has been a wonderful experience for me - I loved seeing the way in which mathematics and art intersected. I was inspired by Petros Vrellis' artwork; please see his [website](http://artof01.com/vrellis/works/knit.html) for a much more professional job than mine! There are several directions I am considering taking this project in. One is to properly introduce colour, not just a single colour as a background like I've done so far (these have all been pretty simple conceptually, even the more creative ones like David Bowie). I've experimented with trying to minimise Eulerian distance between pixels in an RGB/CMYK colour space, as well as a much simpler approach by considering each colour individually. The closest I've come is this image of Botticelli's "The Birth of Venus", and it clearly still leaves a lot to be desired! 
-
+<br />
 <img src="https://user-images.githubusercontent.com/45238458/92217490-aab5da00-ee8f-11ea-94ce-b3738ee72bd3.jpg" width="600">
-
+<br />
 I would also be very interested in moving from 2D to 3D; maybe by constructing pieces that you need to look at in exactly the right way for them to come into focus. For now though, I hope you enjoyed reading about my algorithm, and if you have any questions about it, please feel free to send me a message, I'd love to chat!
 
 Happy coding!
