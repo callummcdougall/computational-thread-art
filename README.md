@@ -1,6 +1,6 @@
 # Computational Thread Art
 
-![Thread-art David Bowie: computer output](https://miro.medium.com/max/612/1*qQECZMJGxPEqIZ64jAI33Q.jpeg | width=100)
+![Thread-art David Bowie: computer output](https://miro.medium.com/max/612/1*qQECZMJGxPEqIZ64jAI33Q.jpeg)
 
 This project contains code that renders an image as a series of lines connecting picture hooks around a circular frame. For more detail in the physical implementation of these pieces, see my [article on Medium](https://medium.com/@cal.s.mcdougall/thread-portrait-art-a9e46ecf34de). The 4 sections in this document are: 
 * **Algorithm description**, which gives a broad picture of how the algorithm works. For more detail, see the Jupyter Notebook file (where each function is explained).
@@ -50,7 +50,7 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
 
    Below is an image of the Jupyter Notebook I used for my Churchill piece, showing the cells relevant for digital creation. I will go through each of the cells, and each of the parameters, in turn.
    
-   ![churchill_alg1](https://user-images.githubusercontent.com/45238458/92213460-7cce9680-ee8b-11ea-9d99-0775bf6719b8.png | width=100)
+   ![churchill_alg1](https://user-images.githubusercontent.com/45238458/92213460-7cce9680-ee8b-11ea-9d99-0775bf6719b8.png)
 
    * The ***first cell*** has the size parameters: the real diameter of the wheels and width of the hooks you are using (in meters), the wheel pixel size (which is the side-length of the digital image you want to create), and the number of hooks you are using. If you're just creating digital art, I would recommend leaving these settings the same as the image above (this has the added advantage that all thread vertices are evenly spaced). If you are making it in real life, then you will need to change these settings so they are appropriate for the image you're creating. A few things to note:
        * You only need to run this cell once, and then you can run the cells below multiple times (with different images / parameters).
@@ -74,7 +74,7 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
 
    Below is an image of the same Jupyter Notebook, showing the cells relevant for physical creation.
 
-   ![churchill_alg2](https://user-images.githubusercontent.com/45238458/92213462-7d672d00-ee8b-11ea-8529-332c5f7280cd.png | width=100)
+   ![churchill_alg2](https://user-images.githubusercontent.com/45238458/92213462-7d672d00-ee8b-11ea-8529-332c5f7280cd.png)
 
    * The ***first cell*** prints the total distance of thread you'll need (in meters), if you are making the piece in real life.
    * The ***second cell*** prints the lines in the output that I use for threading. To explain this output, I will refer to the image of the physical piece (see below). Each number in the output refers to a new hook:
@@ -84,7 +84,7 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
      For instance, the second number 134-0 means I should go to the red piece of tape between 12 and 13, move 4 places anticlockwise (i.e. one place to the left of the blue tape), and choose the anticlockwise side. This is indicated with a blue arrow in the picture.
      Note, whenever I go to a new hook, I always loop around that hook and come out the other side to go to the next one. The only exception is the very first hook; I start the pieces by tying/gluing the piece of thread to the position referred to by the first number.
 
-![churchill_real_arrow](https://user-images.githubusercontent.com/45238458/92216147-d932b580-ee8d-11ea-9165-0092770a9b6a.jpg | width=100)
+![churchill_real_arrow](https://user-images.githubusercontent.com/45238458/92216147-d932b580-ee8d-11ea-9165-0092770a9b6a.jpg)
 
 # Algorithm Examples
 
