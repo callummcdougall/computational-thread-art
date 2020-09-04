@@ -48,9 +48,9 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
 
 2. **LINE GENERATION**
 
-   In this section, I have included an image of an example Jupyter Notebook, which was used to generate my image of Churchill. I will go through this example now, explaining each of the parameters involved.
+   Below is an image of the Jupyter Notebook I used for my Churchill piece, showing the cells relevant for digital creation. I will go through each of the cells, and each of the parameters, in turn.
    
-   ![churchill_pic](https://user-images.githubusercontent.com/45238458/92212493-f06fa400-ee89-11ea-8e97-2d39ad2847f2.png)
+   ![churchill_alg1](https://user-images.githubusercontent.com/45238458/92213460-7cce9680-ee8b-11ea-9d99-0775bf6719b8.png)
 
    * The ***first cell*** has the size parameters: the real diameter of the wheels and width of the hooks you are using (in meters), the wheel pixel size (which is the side-length of the digital image you want to create), and the number of hooks you are using. If you're just creating digital art, I would recommend leaving these settings the same as the image above (this has the added advantage that all thread vertices are evenly spaced). If you are making it in real life, then you will need to change these settings so they are appropriate for the image you're creating. A few things to note:
        * You only need to run this cell once, and then you can run the cells below multiple times (with different images / parameters).
@@ -72,20 +72,19 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
 
 3. **PHYSICAL CREATION**
 
-   * The ***sixth cell*** prints the total distance of thread you'll need (in meters), if you are making the piece in real life.
-   * The ***seventh cell*** prints the lines in the format that I use for threading. To explain the output of this function, I will use a sample from my David Bowie project, as well as an image of the actual physical implementation:
+   Below is an image of the same Jupyter Notebook, showing the cells relevant for physical creation.
 
-    54-1
+   ![churchill_alg2](https://user-images.githubusercontent.com/45238458/92213462-7d672d00-ee8b-11ea-8529-332c5f7280cd.png)
 
-    141-0
+   * The ***first cell*** prints the total distance of thread you'll need (in meters), if you are making the piece in real life.
+   * The ***second cell*** prints the lines in the output that I use for threading. To explain this output, I will refer to the image of the physical piece (see below). Each number in the output refers to a new hook:
+      * The tens digit (i.e. 10, 13, 11 for the first few) refers to the group of hooks (i.e. which number I should go to). These groups are marked off by red tape.
+      * The units digit (i.e. 0, 4, 4 for the first few) identifies the exact hook (the labelling convention is anticlockwise).
+      * The final digit (i.e. 1, 0, 1 for the first few) refers to the side of the hook (0 is the anticlockwise side, 1 is the clockwise side).
+     For instance, the second number 134-0 means I should go to the red piece of tape between 12 and 13, move 4 places anticlockwise (i.e. one place to the left of the blue tape), and choose the anticlockwise side. This is indicated with a blue arrow in the picture.
+     Note, whenever I go to a new hook, I always loop around that hook and come out the other side to go to the next one. The only exception is the very first hook; I start the pieces by tying/gluing the piece of thread to the position referred to by the first number.
 
-    0-0
-
-    123-1
-    
-![Thread-art David Bowie: real life](https://cdn-images-1.medium.com/max/400/1*dp_OT23-ZQATQz37lEmkcA.jpeg)
-
-   As the image shows, I have stuck numbers around the outside of the wheel, and marked blocks of 5 and 10 hooks with coloured pieces of tape (the red corresponds to hook numbers 0, 10, 20, etc). The tens digit (so 5, 14, 0, 12 respectively in this example) tells me which number from 0-16 to go to (i.e. which group of hooks), and the units digit specifies the exact hook within that group. The number after the dash, either 0 or 1, specifies which side of the hook: 0 means the side clockwise from the centre of the hook, 1 means anticlockwise.
+![churchill_real_arrow](https://user-images.githubusercontent.com/45238458/92216147-d932b580-ee8d-11ea-9165-0092770a9b6a.jpg)
 
 # Algorithm Examples
 
