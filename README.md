@@ -83,8 +83,8 @@ I would recommend running this algorithm in Jupyter Notebooks, or something simi
       * The final digit (i.e. 1, 0, 1 for the first few) refers to the side of the hook (0 is the anticlockwise side, 1 is the clockwise side).
      For instance, the second number 134-0 means I should go to the red piece of tape between 12 and 13, move 4 places anticlockwise (i.e. one place to the left of the blue tape), and choose the anticlockwise side. This is indicated with a blue arrow in the picture.
      Note, whenever I go to a new hook, I always loop around that hook and come out the other side to go to the next one. The only exception is the very first hook; I start the pieces by tying/gluing the piece of thread to the position referred to by the first number.
-
-![churchill_real_arrow](https://user-images.githubusercontent.com/45238458/92216147-d932b580-ee8d-11ea-9165-0092770a9b6a.jpg)
+     
+   <img src="https://user-images.githubusercontent.com/45238458/92216147-d932b580-ee8d-11ea-9165-0092770a9b6a.jpg" width="600">
 
 # Algorithm Examples
 
@@ -94,7 +94,7 @@ In previous sections, I've described how to choose your own parameters and run y
 
 This project has been a wonderful experience for me - I loved seeing the way in which mathematics and art intersected. I was inspired by Petros Vrellis' artwork; please see his [website](http://artof01.com/vrellis/works/knit.html) for a much more professional job than mine! There are several directions I am considering taking this project in. One is to properly introduce colour, not just a single colour as a background like I've done so far (these have all been pretty simple conceptually, even the more creative ones like David Bowie). I've experimented with trying to minimise Eulerian distance between pixels in an RGB/CMYK colour space, as well as a much simpler approach by considering each colour individually. The closest I've come is this image of Botticelli's "The Birth of Venus", and it clearly still leaves a lot to be desired! 
 
-![test (full) 3](https://user-images.githubusercontent.com/45238458/92217490-aab5da00-ee8f-11ea-94ce-b3738ee72bd3.jpg | width=100)
+<img src="https://user-images.githubusercontent.com/45238458/92217490-aab5da00-ee8f-11ea-94ce-b3738ee72bd3.jpg" width="600">
 
 I would also be very interested in moving from 2D to 3D; maybe by constructing pieces that you need to look at in exactly the right way for them to come into focus. For now though, I hope you enjoyed reading about my algorithm, and if you have any questions about it, please feel free to send me a message, I'd love to chat!
 
