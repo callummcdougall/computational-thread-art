@@ -97,8 +97,8 @@ This project has been a wonderful experience for me - I loved seeing the way in 
 
  <br />
 
-<img src="https://user-images.githubusercontent.com/45238458/98378254-aea3db00-203d-11eb-9a9b-5f92c164b27c.jpg" width="600">
-<img src="https://user-images.githubusercontent.com/45238458/98378263-b1063500-203d-11eb-802c-4a5df4984fb1.jpg" width="600">
+<img src="https://user-images.githubusercontent.com/45238458/98378254-aea3db00-203d-11eb-9a9b-5f92c164b27c.jpg" width="750">
+<img src="https://user-images.githubusercontent.com/45238458/98378263-b1063500-203d-11eb-802c-4a5df4984fb1.jpg" width="750">
 
  <br />
 
