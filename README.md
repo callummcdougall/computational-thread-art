@@ -93,11 +93,12 @@ In previous sections, I've described how to choose your own parameters and run y
 
 # Final thoughts
 
-This project has been a wonderful experience for me - I loved seeing the way in which mathematics and art intersected. I was inspired by Petros Vrellis' artwork; please see his [website](http://artof01.com/vrellis/works/knit.html) for a much more professional job than mine! There are several directions I am considering taking this project in. One is to properly introduce colour, not just a single colour as a background like I've done so far (these have all been pretty simple conceptually, even the more creative ones like David Bowie). I've experimented with trying to minimise Eulerian distance between pixels in an RGB/CMYK colour space, as well as a much simpler approach by considering each colour individually. The closest I've come is this image of Botticelli's "The Birth of Venus", and it clearly still leaves a lot to be desired! 
+This project has been a wonderful experience for me - I loved seeing the way in which mathematics and art intersected. I was inspired by Petros Vrellis' artwork; please see his [website](http://artof01.com/vrellis/works/knit.html) for a much more professional job than mine! There are several directions I am considering taking this project in. One is to properly introduce colour, not just a single colour as a background like I've done so far (these have all been pretty simple conceptually, even the more creative ones like David Bowie). I've experimented with trying to minimise Eulerian distance between pixels in an RGB/CMYK colour space, as well as a much simpler approach by considering each colour individually. I've managed to create some pretty cool digital art using this method (see below), but unfortunately I haven't been able to adapt the algorithm to create images I could make in real life (because the images below create colours by layering: each thread only has darkness about 20 on a scale from 0-255, and lines crossing over each other create new shades, which obviously isn't how it would work in real life!).
 
  <br />
 
-<img src="https://user-images.githubusercontent.com/45238458/92217490-aab5da00-ee8f-11ea-94ce-b3738ee72bd3.jpg" width="600">
+<img src="https://user-images.githubusercontent.com/45238458/98378254-aea3db00-203d-11eb-9a9b-5f92c164b27c.jpg" width="600">
+<img src="https://user-images.githubusercontent.com/45238458/98378263-b1063500-203d-11eb-802c-4a5df4984fb1.jpg" width="600">
 
  <br />
 
