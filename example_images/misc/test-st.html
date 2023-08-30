@@ -1,0 +1,101 @@
+<html><head><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@350&amp;display=swap" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+.reset-styles, .reset-styles * {
+    all: unset;
+    font-size: 16px;
+}
+body {
+    font-family: 'Source Sans 3', sans-serif;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+    text-align: left;
+    line-height: 0.8em;
+}
+.empty-row td {
+    border: none;
+}
+mark {
+    font-size: 16px;
+    line-height: 1.8rem;
+    padding: 1px;
+    margin-right: 1px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip .tooltiptext {
+    font-size: 16px;
+    min-width: 130px;
+    visibility: hidden;
+    background-color: #eee;
+    color: #000;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -10px;
+    opacity: 0;
+    transition: opacity 0.0s;
+}
+/* .tooltip.clicked .tooltiptext { */
+.tooltip.hovered .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+</style>
+
+<script>
+    $(document).ready(function(){
+        $('.tooltip').hover(function(){
+            if (!$(this).hasClass('clicked')) {
+                $(this).addClass('hovered');
+            }
+            var tooltipWidth = $(this).children('.tooltiptext').outerWidth();
+            var viewportWidth = $(window).width();
+            var tooltipRight = $(this).offset().left + tooltipWidth;
+            if (tooltipRight > viewportWidth) {
+                $(this).children('.tooltiptext').css('left', 'auto').css('right', '0');
+            }
+        }, function() {
+            if (!$(this).hasClass('clicked')) {
+                $(this).removeClass('hovered');
+            }
+                $(this).children('.tooltiptext').css('left', '50%').css('right', 'auto');
+        });
+        $('.tooltip').click(function(e){
+            e.stopPropagation();
+            if ($(this).hasClass('clicked')) {
+                $(this).removeClass('clicked');
+            } else {
+                $('.tooltip').removeClass('clicked');
+                $(this).addClass('clicked');
+            }
+        });
+
+        $(document).click(function() {
+            $('.tooltip').removeClass('clicked');
+        });
+    });
+</script>
+</head>
+
+<div class="reset-styles">
+
+<body>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&lt;|endoftext|&gt;</font></mark><span class="tooltiptext">(0) <b>'&lt;|endoftext|&gt;'</b><br>-0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">Following</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(1) <b>'Following'</b><br>-0.0191</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;news</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(2) <b>' news'</b><br>-0.0031</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;last</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(3) <b>' last'</b><br>0.0083</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;month</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(4) <b>' month'</b><br>-0.0004</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 246)"><font color="black">&nbsp;that</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(5) <b>' that'</b><br>-0.0054</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 244, 242)"><font color="black">&nbsp;Anthony</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(6) <b>' Anthony'</b><br>-0.0509</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;Bour</font></mark><span class="tooltiptext">(7) <b>' Bour'</b><br>-0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">dain</font></mark><span class="tooltiptext">(8) <b>'dain'</b><br>0.0036</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 246, 247)"><font color="black">'s</font></mark><span class="tooltiptext">(9) <b>''s'</b><br>0.0187</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(238, 243, 245)"><font color="black">&nbsp;planned</font></mark><span class="tooltiptext">(10) <b>' planned'</b><br>0.1228</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 245, 243)"><font color="black">&nbsp;international</font></mark><span class="tooltiptext">(11) <b>' international'</b><br>-0.0423</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 245, 244)"><font color="black">&nbsp;food</font></mark><span class="tooltiptext">(12) <b>' food'</b><br>-0.0285</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(244, 245, 246)"><font color="black">&nbsp;market</font></mark><span class="tooltiptext">(13) <b>' market'</b><br>0.0447</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 246)"><font color="black">&nbsp;at</font></mark><span class="tooltiptext">(14) <b>' at'</b><br>-0.0140</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(242, 245, 246)"><font color="black">&nbsp;Pier</font></mark><span class="tooltiptext">(15) <b>' Pier'</b><br>0.0656</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 246)"><font color="black">&nbsp;57</font></mark><span class="tooltiptext">(16) <b>' 57'</b><br>-0.0099</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(245, 246, 247)"><font color="black">&nbsp;had</font></mark><span class="tooltiptext">(17) <b>' had'</b><br>0.0214</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;pushed</font></mark><span class="tooltiptext">(18) <b>' pushed'</b><br>-0.0014</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 246, 247)"><font color="black">&nbsp;its</font></mark><span class="tooltiptext">(19) <b>' its'</b><br>0.0162</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;opening</font></mark><span class="tooltiptext">(20) <b>' opening'</b><br>-0.0193</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;back</font></mark><span class="tooltiptext">(21) <b>' back'</b><br>0.0003</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;by</font></mark><span class="tooltiptext">(22) <b>' by'</b><br>-0.0020</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;two</font></mark><span class="tooltiptext">(23) <b>' two'</b><br>0.0118</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;years</font></mark><span class="tooltiptext">(24) <b>' years'</b><br>0.0046</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(240, 244, 246)"><font color="black">,</font></mark><span class="tooltiptext">(25) <b>','</b><br>0.0920</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 244, 241)"><font color="black">&nbsp;an</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(26) <b>' an'</b><br>-0.0590</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;investigation</font></mark><span class="tooltiptext">(27) <b>' investigation'</b><br>0.0032</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 244, 242)"><font color="black">&nbsp;by</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(28) <b>' by'</b><br>-0.0502</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 243, 240)"><font color="black">&nbsp;Eater</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(29) <b>' Eater'</b><br>-0.0719</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;NY</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(30) <b>' NY'</b><br>0.0110</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;is</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(31) <b>' is'</b><br>-0.0183</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;now</font></mark><span class="tooltiptext">(32) <b>' now'</b><br>0.0133</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 246, 247)"><font color="black">&nbsp;questioning</font></mark><span class="tooltiptext">(33) <b>' questioning'</b><br>0.0174</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(238, 151, 119)"><font color="black">&nbsp;whether</font></mark><span class="tooltiptext">(34) <b>' whether'</b><br>-1.0994</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;Bour</font></mark><span class="tooltiptext">(35) <b>' Bour'</b><br>-0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 246)"><font color="black">dain</font></mark><span class="tooltiptext">(36) <b>'dain'</b><br>-0.0080</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;Market</font></mark><span class="tooltiptext">(37) <b>' Market'</b><br>-0.0022</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 245, 243)"><font color="black">&nbsp;will</font></mark><span class="tooltiptext">(38) <b>' will'</b><br>-0.0418</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;open</font></mark><span class="tooltiptext">(39) <b>' open'</b><br>-0.0210</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(51, 126, 184)"><font color="white">&nbsp;at</font></mark><span class="tooltiptext">(40) <b>' at'</b><br>1.7321</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(243, 163, 129)"><font color="black">&nbsp;the</font></mark><span class="tooltiptext">(41) <b>' the'</b><br>-1.0123</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 245, 244)"><font color="black">&nbsp;pier</font></mark><span class="tooltiptext">(42) <b>' pier'</b><br>-0.0342</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;at</font></mark><span class="tooltiptext">(43) <b>' at'</b><br>0.0076</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;all</font></mark><span class="tooltiptext">(44) <b>' all'</b><br>0.0004</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(249, 195, 169)"><font color="black">.</font></mark><span class="tooltiptext">(45) <b>'.'</b><br>-0.7182</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(108, 173, 209)"><font color="black">&nbsp;Eater</font></mark><span class="tooltiptext">(46) <b>' Eater'</b><br>1.2397</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;found</font></mark><span class="tooltiptext">(47) <b>' found'</b><br>-0.0001</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;out</font></mark><span class="tooltiptext">(48) <b>' out'</b><br>0.0108</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(232, 137, 109)"><font color="black">&nbsp;that</font></mark><span class="tooltiptext">(49) <b>' that'</b><br>-1.2004</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;Bour</font></mark><span class="tooltiptext">(next token unknown)</span></span>&nbsp;</body></html>
+
+</div>
