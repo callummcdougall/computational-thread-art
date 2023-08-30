@@ -1,0 +1,101 @@
+<html><head><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@350&amp;display=swap" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+.reset-styles, .reset-styles * {
+    all: unset;
+    font-size: 16px;
+}
+body {
+    font-family: 'Source Sans 3', sans-serif;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+    text-align: left;
+    line-height: 0.8em;
+}
+.empty-row td {
+    border: none;
+}
+mark {
+    font-size: 16px;
+    line-height: 1.8rem;
+    padding: 1px;
+    margin-right: 1px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip .tooltiptext {
+    font-size: 16px;
+    min-width: 130px;
+    visibility: hidden;
+    background-color: #eee;
+    color: #000;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -10px;
+    opacity: 0;
+    transition: opacity 0.0s;
+}
+/* .tooltip.clicked .tooltiptext { */
+.tooltip.hovered .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+</style>
+
+<script>
+    $(document).ready(function(){
+        $('.tooltip').hover(function(){
+            if (!$(this).hasClass('clicked')) {
+                $(this).addClass('hovered');
+            }
+            var tooltipWidth = $(this).children('.tooltiptext').outerWidth();
+            var viewportWidth = $(window).width();
+            var tooltipRight = $(this).offset().left + tooltipWidth;
+            if (tooltipRight > viewportWidth) {
+                $(this).children('.tooltiptext').css('left', 'auto').css('right', '0');
+            }
+        }, function() {
+            if (!$(this).hasClass('clicked')) {
+                $(this).removeClass('hovered');
+            }
+                $(this).children('.tooltiptext').css('left', '50%').css('right', 'auto');
+        });
+        $('.tooltip').click(function(e){
+            e.stopPropagation();
+            if ($(this).hasClass('clicked')) {
+                $(this).removeClass('clicked');
+            } else {
+                $('.tooltip').removeClass('clicked');
+                $(this).addClass('clicked');
+            }
+        });
+
+        $(document).click(function() {
+            $('.tooltip').removeClass('clicked');
+        });
+    });
+</script>
+</head>
+
+<div class="reset-styles">
+
+<body>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&lt;|endoftext|&gt;</font></mark><span class="tooltiptext">(0) <b>'&lt;|endoftext|&gt;'</b><br>0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">Ber</font></mark><span class="tooltiptext">(1) <b>'Ber'</b><br>-0.0249</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(245, 246, 247)"><font color="black">keley</font></mark><span class="tooltiptext">(2) <b>'keley'</b><br>0.0325</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;to</font></mark><span class="tooltiptext">(3) <b>' to'</b><br>-0.0007</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 246, 247)"><font color="black">&nbsp;offer</font></mark><span class="tooltiptext">(4) <b>' offer'</b><br>0.0184</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;course</font></mark><span class="tooltiptext">(5) <b>' course'</b><br>-0.0037</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;on</font></mark><span class="tooltiptext">(6) <b>' on'</b><br>0.0114</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(245, 246, 247)"><font color="black">&nbsp;the</font></mark><span class="tooltiptext">(7) <b>' the'</b><br>0.0236</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;'</font></mark><span class="tooltiptext">(8) <b>' ''</b><br>-0.0190</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">politics</font></mark><span class="tooltiptext">(9) <b>'politics'</b><br>0.0007</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(245, 246, 247)"><font color="black">&nbsp;of</font></mark><span class="tooltiptext">(10) <b>' of'</b><br>0.0267</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;needing</font></mark><span class="tooltiptext">(11) <b>' needing'</b><br>0.0059</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;to</font></mark><span class="tooltiptext">(12) <b>' to'</b><br>0.0011</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;go</font></mark><span class="tooltiptext">(13) <b>' go'</b><br>0.0054</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">'</font></mark><span class="tooltiptext">(14) <b>'''</b><br>0.0102</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">\n</font></mark><span class="tooltiptext">(15) <b>'\n'</b><br>0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(231, 239, 244)"><font color="black">\n</font></mark><span class="tooltiptext">(16) <b>'\n'</b><br>0.2102</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(244, 246, 246)"><font color="black">Last</font></mark><span class="tooltiptext">(17) <b>'Last'</b><br>0.0396</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(236, 242, 245)"><font color="black">&nbsp;Summer</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(18) <b>' Summer'</b><br>0.1418</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(212, 230, 241)"><font color="black">'s</font></mark><span class="tooltiptext">(19) <b>''s'</b><br>0.4603</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 242, 238)"><font color="black">&nbsp;heated</font></mark><span class="tooltiptext">(20) <b>' heated'</b><br>-0.0941</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;debate</font></mark><span class="tooltiptext">(21) <b>' debate'</b><br>0.0054</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(243, 245, 246)"><font color="black">&nbsp;over</font></mark><span class="tooltiptext">(22) <b>' over'</b><br>0.0464</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;North</font></mark><span class="tooltiptext">(23) <b>' North'</b><br>-0.0231</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;Carolina</font></mark><span class="tooltiptext">(24) <b>' Carolina'</b><br>-0.0027</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 246)"><font color="black">'s</font></mark><span class="tooltiptext">(25) <b>''s'</b><br>-0.0073</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(241, 244, 246)"><font color="black">&nbsp;controversial</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(26) <b>' controversial'</b><br>0.0729</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;"</font></mark><span class="tooltiptext">(27) <b>' "'</b><br>0.0009</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">bath</font></mark><span class="tooltiptext">(28) <b>'bath'</b><br>0.0030</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">room</font></mark><span class="tooltiptext">(29) <b>'room'</b><br>-0.0031</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;bill</font></mark><span class="tooltiptext">(30) <b>' bill'</b><br>-0.0017</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(245, 246, 247)"><font color="black">"</font></mark><span class="tooltiptext">(31) <b>'"'</b><br>0.0275</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(241, 244, 246)"><font color="black">&nbsp;inspired</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(32) <b>' inspired'</b><br>0.0762</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(244, 245, 246)"><font color="black">&nbsp;the</font></mark><span class="tooltiptext">(33) <b>' the'</b><br>0.0421</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;University</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(34) <b>' University'</b><br>0.0003</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(249, 236, 228)"><font color="black">&nbsp;of</font></mark><span class="tooltiptext">(35) <b>' of'</b><br>-0.1980</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(242, 244, 246)"><font color="black">&nbsp;California</font></mark><span class="tooltiptext">(36) <b>' California'</b><br>0.0699</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(250, 231, 220)"><font color="black">,</font></mark><span class="tooltiptext">(37) <b>','</b><br>-0.2862</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;Berkeley</font></mark><span class="tooltiptext">(38) <b>' Berkeley'</b><br>0.0106</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(218, 233, 242)"><font color="black">&nbsp;to</font></mark><span class="tooltiptext">(39) <b>' to'</b><br>0.3773</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(246, 247, 247)"><font color="black">&nbsp;devote</font></mark><span class="tooltiptext">(40) <b>' devote'</b><br>0.0075</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 246, 245)"><font color="black">&nbsp;an</font></mark><span class="tooltiptext">(41) <b>' an'</b><br>-0.0216</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(253, 219, 198)"><font color="black">&nbsp;entire</font></mark><span class="tooltiptext">(42) <b>' entire'</b><br>-0.5039</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;course</font></mark><span class="tooltiptext" style="left: 50%; right: auto;">(43) <b>' course'</b><br>-0.0006</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(243, 245, 246)"><font color="black">&nbsp;to</font></mark><span class="tooltiptext">(44) <b>' to'</b><br>0.0493</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(230, 239, 244)"><font color="black">&nbsp;the</font></mark><span class="tooltiptext">(45) <b>' the'</b><br>0.2181</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(249, 238, 232)"><font color="black">&nbsp;"</font></mark><span class="tooltiptext">(46) <b>' "'</b><br>-0.1525</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">politics</font></mark><span class="tooltiptext">(47) <b>'politics'</b><br>0.0028</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(248, 243, 241)"><font color="black">&nbsp;of</font></mark><span class="tooltiptext">(48) <b>' of'</b><br>-0.0649</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;needing</font></mark><span class="tooltiptext">(49) <b>' needing'</b><br>-0.0000</span></span>&nbsp;<span class="tooltip"><mark style="background-color:rgb(247, 247, 247)"><font color="black">&nbsp;to</font></mark><span class="tooltiptext">(next token unknown)</span></span>&nbsp;</body></html>
+
+</div>
