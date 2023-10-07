@@ -1,0 +1,69 @@
+﻿Date,Chapter,Exercises link
+Mon 17 Oct,0 - Prerequisites,https://arena-ch0.streamlit.app/W0D1_-_Fourier_Transforms
+Tue 18 Oct,0 - Prerequisites,"https://arena-ch0.streamlit.app/W0D2_-_as_strided,_convolutions_and_CNNs"
+Wed 19 Oct,0 - Prerequisites,https://arena-ch0.streamlit.app/W0D3-5_-_ResNets_and_fine-tuning
+Thu 20 Oct,0 - Prerequisites,https://arena-ch0.streamlit.app/W0D3-5_-_ResNets_and_fine-tuning
+Fri 21 Oct,0 - Prerequisites,https://arena-ch0.streamlit.app/W0D3-5_-_ResNets_and_fine-tuning
+Sat 22 Oct,,
+Sun 23 Oct,,
+Mon 24 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W1D1_-_Transformer_Reading
+Tue 25 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W1D2_-_Transformer_Exercises
+Wed 26 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W1D3_-_Build_your_own_transformer_(1)
+Thu 27 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W1D4-5_-_Build_your_own_transformer_(2)
+Fri 28 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W1D4-5_-_Build_your_own_transformer_(2)
+Sat 29 Oct,,
+Sun 30 Oct,,
+Mon 31 Oct,1 - Transformers,https://arena-ch1.streamlit.app/W2D1_-_Weights_and_Biases
+Tue 01 Nov,1 - Transformers,https://arena-ch1.streamlit.app/W2D2-5_-_Further_Investigations
+Wed 02 Nov,1 - Transformers,https://arena-ch1.streamlit.app/W2D2-5_-_Further_Investigations
+Thu 03 Nov,1 - Transformers,https://arena-ch1.streamlit.app/W2D2-5_-_Further_Investigations
+Fri 04 Nov,1 - Transformers,https://arena-ch1.streamlit.app/W2D2-5_-_Further_Investigations
+Sat 05 Nov,,
+Sun 06 Nov,,
+Mon 07 Nov,2 - Optimisation,https://arena-ch2.streamlit.app/W3D1_-_Optimiser_Exercises
+Tue 08 Nov,2 - Optimisation,https://arena-ch2.streamlit.app/W3D2_-_Optimiser_Investigations
+Wed 09 Nov,3 - Scaling Laws,https://arena-ch3.streamlit.app/W3D3-5_-_Scaling_Laws_Investigations
+Thu 10 Nov,3 - Scaling Laws,https://arena-ch3.streamlit.app/W3D3-5_-_Scaling_Laws_Investigations
+Fri 11 Nov,3 - Scaling Laws,https://arena-ch3.streamlit.app/W3D3-5_-_Scaling_Laws_Investigations
+Sat 12 Nov,,
+Sun 13 Nov,,
+Mon 14 Nov,4A - Modelling Objectives,https://arena-ch4a.streamlit.app/W4D1-2_-_GANs
+Tue 15 Nov,4A - Modelling Objectives,https://arena-ch4a.streamlit.app/W4D1-2_-_GANs
+Wed 16 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W4D3-5_-_VAEs, https://arena-ch4b.streamlit.app/W4D3-4_-_Docker"
+Thu 17 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W4D3-5_-_VAEs, https://arena-ch4b.streamlit.app/W4D3-4_-_Docker"
+Fri 18 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W4D3-5_-_VAEs, https://arena-ch4b.streamlit.app/W4D5_-_Lambda_Labs"
+Sat 19 Nov,,
+Sun 20 Nov,,
+Mon 21 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W5D1-3_-_Diffusion_models, https://arena-ch4b.streamlit.app/W5D1-3_-_Pretraining_BERT"
+Tue 22 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W5D1-3_-_Diffusion_models, https://arena-ch4b.streamlit.app/W5D1-3_-_Pretraining_BERT"
+Wed 23 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W5D1-3_-_Diffusion_models, https://arena-ch4b.streamlit.app/W5D1-3_-_Pretraining_BERT"
+Thu 24 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W5D1-3_-_Diffusion_models, https://arena-ch4b.streamlit.app/W5D1-3_-_Pretraining_BERT"
+Fri 25 Nov,   4A - Modelling Objectives<br><br>or 4B - Training at Scale,"https://arena-ch4a.streamlit.app/W5D1-3_-_Diffusion_models, https://arena-ch4b.streamlit.app/W5D1-3_-_Pretraining_BERT"
+Sat 26 Nov,,
+Sun 27 Nov,,
+Mon 28 Nov,5 - RL,
+Tue 29 Nov,5 - RL,
+Wed 30 Nov,5 - RL,
+Thu 01 Dec,5 - RL,
+Fri 02 Dec,5 - RL,
+Sat 03 Dec,,
+Sun 04 Dec,,
+Mon 05 Dec,5 - RL,
+Tue 06 Dec,5 - RL,
+Wed 07 Dec,6 - Interpretability,
+Thu 08 Dec,6 - Interpretability,
+Fri 09 Dec,6 - Interpretability,
+Sat 10 Dec,,
+Sun 11 Dec,,
+Mon 12 Dec,6 - Interpretability,
+Tue 13 Dec,6 - Interpretability,
+Wed 14 Dec,6 - Interpretability,
+Thu 15 Dec,6 - Interpretability,
+Fri 16 Dec,6 - Interpretability,
+Sat 17 Dec,,
+Sun 18 Dec,,
+Mon 19 Dec,8 - Capstone Projects,
+Tue 20 Dec,8 - Capstone Projects,
+Wed 21 Dec,8 - Capstone Projects,
+Thu 22 Dec,8 - Capstone Projects,
+Fri 23 Dec,8 - Capstone Projects,
