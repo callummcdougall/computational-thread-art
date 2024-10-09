@@ -105,3 +105,17 @@ This project has been a wonderful experience for me - I loved seeing the way in 
 I would also be very interested in moving from 2D to 3D; maybe by constructing pieces that you need to look at in exactly the right way for them to come into focus. For now though, I hope you enjoyed reading about my algorithm, If you have any questions about it, please feel free to send me a message, I'd love to chat!
 
 Happy coding!
+
+
+<details>
+<summary>1321</summary>
+
+https://github.com/user-attachments/assets/08c9e60e-57d0-48cb-b920-567014c6c75f
+
+https://github.com/user-attachments/assets/4935d27b-b76f-4c3e-9087-1233001e90cd
+
+https://github.com/user-attachments/assets/c12f3b0f-edef-4cd7-8c0b-c9a5b44e32b1
+
+https://github.com/user-attachments/assets/4cccca09-3612-44f1-8cd4-b4912e58f8b3
+
+</details>
