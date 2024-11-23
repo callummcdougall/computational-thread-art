@@ -1,46 +1,46 @@
 <style type="text/css">
-#T_6e840  {
+#T_e9c13  {
   border-collapse: collapse;
   font-size: 0.9em;
   font-family: system-ui;
   background-color: #1a1a1a;
   color: #ffffff;
 }
-#T_6e840 th {
+#T_e9c13 th {
   padding: 5px 10px;
   text-align: left;
 }
-#T_6e840  td {
+#T_e9c13  td {
   padding: 5px 10px;
   text-align: left;
 }
-#T_6e840 thead tr {
+#T_e9c13 thead tr {
   background-color: #4a4a4a;
   color: #ffffff;
   text-align: left;
 }
-#T_6e840 tbody tr {
+#T_e9c13 tbody tr {
   border-bottom: 1px solid #404040;
 }
-#T_6e840 tbody tr:nth-of-type(even) {
+#T_e9c13 tbody tr:nth-of-type(even) {
   background-color: #2d2d2d;
 }
-#T_6e840 tbody tr:last-of-type {
+#T_e9c13 tbody tr:last-of-type {
   border-bottom: 2px solid #4a4a4a;
 }
-#T_6e840 tbody tr:hover {
+#T_e9c13 tbody tr:hover {
   background-color: #363636;
 }
-#T_6e840_row10_col0 {
+#T_e9c13_row7_col0, #T_e9c13_row17_col0 {
   background-color: red;
 }
 </style>
-<table id="T_6e840">
+<table id="T_e9c13">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_6e840_level0_col0" class="col_heading level0 col0" >default value</th>
-      <th id="T_6e840_level0_col1" class="col_heading level0 col1" >description</th>
+      <th id="T_e9c13_level0_col0" class="col_heading level0 col0" >default value</th>
+      <th id="T_e9c13_level0_col1" class="col_heading level0 col1" >description</th>
     </tr>
     <tr>
       <th class="index_name level0" >arg</th>
@@ -50,89 +50,94 @@
   </thead>
   <tbody>
     <tr>
-      <th id="T_6e840_level0_row0" class="row_heading level0 row0" >seed</th>
-      <td id="T_6e840_row0_col0" class="data row0 col0" >1</td>
-      <td id="T_6e840_row0_col1" class="data row0 col1" >seed of the experiment</td>
+      <th id="T_e9c13_level0_row0" class="row_heading level0 row0" >seed</th>
+      <td id="T_e9c13_row0_col0" class="data row0 col0" >1</td>
+      <td id="T_e9c13_row0_col1" class="data row0 col1" >seed of the experiment</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row1" class="row_heading level0 row1" >env_id</th>
-      <td id="T_6e840_row1_col0" class="data row1 col0" >'CartPole-v1'</td>
-      <td id="T_6e840_row1_col1" class="data row1 col1" >the id of the environment</td>
+      <th id="T_e9c13_level0_row1" class="row_heading level0 row1" >env_id</th>
+      <td id="T_e9c13_row1_col0" class="data row1 col0" >'CartPole-v1'</td>
+      <td id="T_e9c13_row1_col1" class="data row1 col1" >the id of the environment</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row2" class="row_heading level0 row2" >use_wandb</th>
-      <td id="T_6e840_row2_col0" class="data row2 col0" >False</td>
-      <td id="T_6e840_row2_col1" class="data row2 col1" >whether to log to weights and biases</td>
+      <th id="T_e9c13_level0_row2" class="row_heading level0 row2" >num_envs</th>
+      <td id="T_e9c13_row2_col0" class="data row2 col0" >1</td>
+      <td id="T_e9c13_row2_col1" class="data row2 col1" >number of environments to run in parallel</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row3" class="row_heading level0 row3" >capture_video_every_n_episodes</th>
-      <td id="T_6e840_row3_col0" class="data row3 col0" >100</td>
-      <td id="T_6e840_row3_col1" class="data row3 col1" >number of episodes between each video capture (None means no capture this way)</td>
+      <th id="T_e9c13_level0_row3" class="row_heading level0 row3" >use_wandb</th>
+      <td id="T_e9c13_row3_col0" class="data row3 col0" >False</td>
+      <td id="T_e9c13_row3_col1" class="data row3 col1" >whether to log to weights and biases</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row4" class="row_heading level0 row4" >exp_name</th>
-      <td id="T_6e840_row4_col0" class="data row4 col0" >'CartPoleDQN'</td>
-      <td id="T_6e840_row4_col1" class="data row4 col1" >the name of this experiment (also used as wandb project name)</td>
+      <th id="T_e9c13_level0_row4" class="row_heading level0 row4" >exp_name</th>
+      <td id="T_e9c13_row4_col0" class="data row4 col0" >'CartPoleDQN'</td>
+      <td id="T_e9c13_row4_col1" class="data row4 col1" >the name of this experiment (also used as wandb project name)</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row5" class="row_heading level0 row5" >wandb_entity</th>
-      <td id="T_6e840_row5_col0" class="data row5 col0" >None</td>
-      <td id="T_6e840_row5_col1" class="data row5 col1" >the entity (team) of wandb's project</td>
+      <th id="T_e9c13_level0_row5" class="row_heading level0 row5" >wandb_entity</th>
+      <td id="T_e9c13_row5_col0" class="data row5 col0" >None</td>
+      <td id="T_e9c13_row5_col1" class="data row5 col1" >the entity (team) of wandb's project</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row6" class="row_heading level0 row6" >buffer_size</th>
-      <td id="T_6e840_row6_col0" class="data row6 col0" >10000</td>
-      <td id="T_6e840_row6_col1" class="data row6 col1" >the replay memory buffer size</td>
+      <th id="T_e9c13_level0_row6" class="row_heading level0 row6" >video_log_freq</th>
+      <td id="T_e9c13_row6_col0" class="data row6 col0" >50</td>
+      <td id="T_e9c13_row6_col1" class="data row6 col1" >number of episodes between each video capture (None means no capture this way)</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row7" class="row_heading level0 row7" >train_frequency</th>
-      <td id="T_6e840_row7_col0" class="data row7 col0" >10</td>
-      <td id="T_6e840_row7_col1" class="data row7 col1" >number of sampled actions in between each learning step</td>
+      <th id="T_e9c13_level0_row7" class="row_heading level0 row7" >total_timesteps</th>
+      <td id="T_e9c13_row7_col0" class="data row7 col0" >400000</td>
+      <td id="T_e9c13_row7_col1" class="data row7 col1" >total number of steps our agent will take in total, across training</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row8" class="row_heading level0 row8" >total_timesteps</th>
-      <td id="T_6e840_row8_col0" class="data row8 col0" >500000</td>
-      <td id="T_6e840_row8_col1" class="data row8 col1" >total number of steps of the experiments</td>
+      <th id="T_e9c13_level0_row8" class="row_heading level0 row8" >steps_per_train</th>
+      <td id="T_e9c13_row8_col0" class="data row8 col0" >10</td>
+      <td id="T_e9c13_row8_col1" class="data row8 col1" >number of sampled actions (i.e. agent steps) in between each training step</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row9" class="row_heading level0 row9" >target_network_frequency</th>
-      <td id="T_6e840_row9_col0" class="data row9 col0" >100</td>
-      <td id="T_6e840_row9_col1" class="data row9 col1" >the timesteps it takes to update the target network</td>
+      <th id="T_e9c13_level0_row9" class="row_heading level0 row9" >trains_per_target_update</th>
+      <td id="T_e9c13_row9_col0" class="data row9 col0" >100</td>
+      <td id="T_e9c13_row9_col1" class="data row9 col1" >the number of training steps in between each target network update</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row10" class="row_heading level0 row10" >batch_size</th>
-      <td id="T_6e840_row10_col0" class="data row10 col0" >256</td>
-      <td id="T_6e840_row10_col1" class="data row10 col1" >the batch size of samples from the replay memory</td>
+      <th id="T_e9c13_level0_row10" class="row_heading level0 row10" >buffer_size</th>
+      <td id="T_e9c13_row10_col0" class="data row10 col0" >10000</td>
+      <td id="T_e9c13_row10_col1" class="data row10 col1" >the replay memory buffer size</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row11" class="row_heading level0 row11" >learning_rate</th>
-      <td id="T_6e840_row11_col0" class="data row11 col0" >0.00025</td>
-      <td id="T_6e840_row11_col1" class="data row11 col1" >the learning rate of the optimizer</td>
+      <th id="T_e9c13_level0_row11" class="row_heading level0 row11" >batch_size</th>
+      <td id="T_e9c13_row11_col0" class="data row11 col0" >128</td>
+      <td id="T_e9c13_row11_col1" class="data row11 col1" >the batch size of samples from the replay memory</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row12" class="row_heading level0 row12" >start_e</th>
-      <td id="T_6e840_row12_col0" class="data row12 col0" >1.0</td>
-      <td id="T_6e840_row12_col1" class="data row12 col1" >the starting epsilon for exploration</td>
+      <th id="T_e9c13_level0_row12" class="row_heading level0 row12" >learning_rate</th>
+      <td id="T_e9c13_row12_col0" class="data row12 col0" >0.00025</td>
+      <td id="T_e9c13_row12_col1" class="data row12 col1" >the learning rate of the optimizer</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row13" class="row_heading level0 row13" >end_e</th>
-      <td id="T_6e840_row13_col0" class="data row13 col0" >0.1</td>
-      <td id="T_6e840_row13_col1" class="data row13 col1" >the ending epsilon for exploration</td>
+      <th id="T_e9c13_level0_row13" class="row_heading level0 row13" >gamma</th>
+      <td id="T_e9c13_row13_col0" class="data row13 col0" >0.99</td>
+      <td id="T_e9c13_row13_col1" class="data row13 col1" >the discount factor gamma</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row14" class="row_heading level0 row14" >gamma</th>
-      <td id="T_6e840_row14_col0" class="data row14 col0" >0.99</td>
-      <td id="T_6e840_row14_col1" class="data row14 col1" >the discount factor gamma</td>
+      <th id="T_e9c13_level0_row14" class="row_heading level0 row14" >exploration_fraction</th>
+      <td id="T_e9c13_row14_col0" class="data row14 col0" >0.2</td>
+      <td id="T_e9c13_row14_col1" class="data row14 col1" >the fraction of `total-timesteps` it takes from start-e to go end-e</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row15" class="row_heading level0 row15" >exploration_fraction</th>
-      <td id="T_6e840_row15_col0" class="data row15 col0" >0.2</td>
-      <td id="T_6e840_row15_col1" class="data row15 col1" >the fraction of `total-timesteps` it takes from start-e to go end-e</td>
+      <th id="T_e9c13_level0_row15" class="row_heading level0 row15" >start_e</th>
+      <td id="T_e9c13_row15_col0" class="data row15 col0" >1.0</td>
+      <td id="T_e9c13_row15_col1" class="data row15 col1" >the starting epsilon for exploration</td>
     </tr>
     <tr>
-      <th id="T_6e840_level0_row16" class="row_heading level0 row16" >total_training_steps</th>
-      <td id="T_6e840_row16_col0" class="data row16 col0" >49000</td>
-      <td id="T_6e840_row16_col1" class="data row16 col1" >the total number of training steps (total_timesteps - buffer_size) // train_frequency</td>
+      <th id="T_e9c13_level0_row16" class="row_heading level0 row16" >end_e</th>
+      <td id="T_e9c13_row16_col0" class="data row16 col0" >0.1</td>
+      <td id="T_e9c13_row16_col1" class="data row16 col1" >the ending epsilon for exploration</td>
+    </tr>
+    <tr>
+      <th id="T_e9c13_level0_row17" class="row_heading level0 row17" >total_training_steps</th>
+      <td id="T_e9c13_row17_col0" class="data row17 col0" >39000</td>
+      <td id="T_e9c13_row17_col1" class="data row17 col1" >the total number of training steps (total_timesteps - buffer_size) // steps_per_train</td>
     </tr>
   </tbody>
 </table>
